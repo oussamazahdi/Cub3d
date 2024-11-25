@@ -1,12 +1,13 @@
 SRC			=	main.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c utils/ft_strcmp.c \
 				utils/ft_lstadd_back_bonus.c utils/ft_lstnew_bonus.c utils/ft_split.c utils/ft_atoi.c \
 				utils/ft_strncmp.c\
+				utils/utils1.c utils/ft_strshr.c\
 
 OBJ			=	$(SRC:.c=.o)
 
 CC			=	cc
 
-FLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
 NAME			=	cub3d
 

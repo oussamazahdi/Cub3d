@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 11:48:43 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/25 12:53:16 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
 }t_player;
 
 typedef struct s_map
@@ -60,6 +60,9 @@ char		**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
 t_list	*ft_lstnew(void *content);
 int		ft_atoi(const char *str);
+int		ft_double_size(char **map);
+int		ft_grand_line(char **map);
+int		ft_strshr(char *s, char c);
 
 						//PARSING
 

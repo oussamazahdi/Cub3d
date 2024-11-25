@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 11:46:21 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/25 13:03:31 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,8 +261,6 @@ int	check_map2(char **map, int i, int j, int y)
 	k = 0;
 	if (i == y)
 		return (0);
-	//printf("%s --- %d\n", map[i - 1], j);
-	// write(1, &map[i - 1][0], 1);
 	if (map[i - 1][j] != '1' && map[i - 1][j] != 'N' && map[i - 1][j] != '0')
 		return (write(1, &map[i - 1][j - 10], 1), 1);
 	if (j > 0 && map[i][j - 1] != '1' && map[i][j - 1] != 'N' && map[i][j - 1] != '0')
@@ -335,6 +333,38 @@ int	filling_map(t_map *utils, int len, int j, t_list *lst)
 	return (0);
 }
 
+void ft_player_position(t_map *data, t_player *player)
+{
+	int		i;
+	int		j;
+	
+	if (!data->map || !*data->map)
+		return ;
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (ft_strchr("NSEW", data->map[i][j]))
+			{
+				player->x = j;
+				player->y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void ft_fill_info(t_map *data, t_player *player)
+{
+	data->big_len = ft_grand_line(data->map);
+	data->lines_number = ft_double_size(data->map);
+	ft_player_position(data, player);
+}
+
 void	*parsing_map(t_map *utils, int *fd)
 {
 	t_list	*lst;
@@ -351,6 +381,10 @@ void	*parsing_map(t_map *utils, int *fd)
 	len = lines_lenght(lst, &j);
 	if (filling_map(utils, len, j, lst) == 1)
 		return (write(2, "parse error\n", 13), NULL);
+	utils->player = malloc(sizeof(t_player));
+	ft_fill_info(utils, utils->player);
+	printf("n_line[%d], line_len[%d]\n", utils->big_len, utils->lines_number);
+	printf("x[%d], y[%d]\n", utils->player->x, utils->player->y);
 	return (NULL);
 }
 
