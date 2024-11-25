@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 12:53:16 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/25 14:42:23 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <libc.h>
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include "MLX42/include/MLX42/MLX42.h"
+#include "get_next_line/get_next_line.h"
 
 typedef struct s_player
 {
@@ -24,6 +30,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
+	mlx_t	*mlx;
 	char	*NO;
 	char	*EA;
 	char	*SO;
@@ -46,12 +53,6 @@ typedef struct s_list
 	struct s_list	*next;
 } t_list;
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include "MLX42/include/MLX42/MLX42.h"
-#include "get_next_line/get_next_line.h"
 
 						// UTILS
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -65,5 +66,7 @@ int		ft_grand_line(char **map);
 int		ft_strshr(char *s, char c);
 
 						//PARSING
+						//RAY_CASTING
+void ray_casting(t_map *data);
 
 #endif

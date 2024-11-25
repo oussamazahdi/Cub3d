@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 13:03:31 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/25 14:42:06 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,8 +383,6 @@ void	*parsing_map(t_map *utils, int *fd)
 		return (write(2, "parse error\n", 13), NULL);
 	utils->player = malloc(sizeof(t_player));
 	ft_fill_info(utils, utils->player);
-	printf("n_line[%d], line_len[%d]\n", utils->big_len, utils->lines_number);
-	printf("x[%d], y[%d]\n", utils->player->x, utils->player->y);
 	return (NULL);
 }
 
@@ -405,4 +403,5 @@ int main()
 
 	utils_init(&utils);
 	parsing_map(&utils, &fd);
+	ray_casting(&utils);
 }
