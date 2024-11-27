@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 14:42:23 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/26 19:51:34 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,25 @@
 #include "MLX42/include/MLX42/MLX42.h"
 #include "get_next_line/get_next_line.h"
 
+#define SQUER 35
+
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
+	int		redius;
+	int		turn_dir;
+	int		walk_dir;
+	double	rot_ang;
+	double	p_speed;
+	int		rot_speed;
+	float	fov_rad;
 }t_player;
 
 typedef struct s_map
 {
 	mlx_t	*mlx;
+	mlx_image_t* image;
 	char	*NO;
 	char	*EA;
 	char	*SO;

@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/25 14:42:06 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/27 11:38:34 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,8 +348,8 @@ void ft_player_position(t_map *data, t_player *player)
 		{
 			if (ft_strchr("NSEW", data->map[i][j]))
 			{
-				player->x = j;
-				player->y = i;
+				player->x = j * SQUER + SQUER / 2;
+				player->y = i * SQUER + SQUER / 2;
 				return ;
 			}
 			j++;
@@ -405,3 +405,6 @@ int main()
 	parsing_map(&utils, &fd);
 	ray_casting(&utils);
 }
+
+
+
