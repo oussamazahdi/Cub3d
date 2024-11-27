@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/26 19:51:34 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/27 13:45:06 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
+	int	d_x;
+	int	d_y;
+	int ang;
 	int		redius;
 	int		turn_dir;
 	int		walk_dir;
