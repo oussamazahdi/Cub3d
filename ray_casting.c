@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:28:54 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/11/28 11:59:29 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/28 12:01:35 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ void ft_handek_actions(void *param)
 			if (data->player->ang < 0)
 				data->player->ang += 360;
 		}
-		data->player->x += cos(degree_radian(data->player->ang, 0)) * 2;
-		data->player->y += sin(degree_radian(data->player->ang, 0)) * 2;
+		data->player->x += cos(degree_radian(data->player->ang, 0));
+		data->player->y += sin(degree_radian(data->player->ang, 0));
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 	{
