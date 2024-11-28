@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:28:54 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/11/27 14:11:36 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/28 09:48:37 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,10 @@ void ft_put_player(t_map *data, mlx_image_t *image)
 		}
 		i++;
 	}
-	data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 40;
-	data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 40;
+	data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 30;
+	data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 30;
+	//data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 30;
+	//data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 30;
 	bresenham_line_algo2(data->player->y, data->player->x, data->player->d_y, data->player->d_x, data);
 	//data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 1 * 40;
 	//data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 1 * 40;
@@ -226,25 +228,43 @@ void ft_handek_actions(void *param)
 	t_map *data = (t_map *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		//data->player->turn_dir = 1;
-		data->player->ang += 3;
+		data->player->turn_dir = 1;
+		data->player->ang += 2;
 		if (data->player->ang > 360)
-			data->player->ang = 0 + data->player->ang - 360;
+			data->player->ang = data->player->ang - 360;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->player->ang -= 3;
+		data->player->turn_dir = -1;
+		data->player->ang -= 2;
 		if (data->player->ang < 0)
-			data->player->ang = 360;
+			data->player->ang = 360 + data->player->ang;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		data->player->x += 2;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->player->x -= 2;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		data->player->y -= 2;
+	{
+		if (data->player->ang == 1)
+		{	
+			data->player->ang += 2;
+			if (data->player->ang > 360)
+				data->player->ang = 0 + data->player->ang - 360;
+		}else if (data->player->turn_dir == -1) 
+		{
+			data->player->ang -= 2;
+			if (data->player->ang < 0)
+				data->player->ang = 360 + data->player->ang;
+		}
+		data->player->x += cos(degree_radian(data->player->ang, 0)) * 2;
+		data->player->y += sin(degree_radian(data->player->ang, 0)) * 2;
+	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		data->player->y += 2;
+	{
+		data->player->x -= cos(degree_radian(data->player->ang, 0)) * 2 * 1;
+		data->player->y -= sin(degree_radian(data->player->ang, 0)) * 2 * 1;
+	}
 	rander_2d_map(data, data->image);
 }
 
