@@ -5,14 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 14:28:54 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/11/28 12:01:35 by ozahdi           ###   ########.fr       */
+/*   Created: 2024/11/29 10:16:00 by ozahdi            #+#    #+#             */
+/*   Updated: 2024/11/29 13:40:52 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_map *exec)
+double degree_radian(double degree, int type)
+{
+	if (!type) // type == 0 => degree to rad
+		return (degree * (M_PI / 180));
+	return (degree * (180 / M_PI));
+}
+
+void ft_init_data(t_data *data)
+{
+	t_player *player;
+
+	player = data->player;
+	player->rot_angel = M_PI / 2;
+	player->speed = 4;
+	player->turn_dir = 0; // -1 left or 1 right
+	player->redius = SQUER / 7;
+	player->ang = 30;
+	player->pl_x = player->pl_x * SQUER + SQUER / 2;
+	player->pl_y = player->pl_y * SQUER + SQUER / 2;
+	player->d_x = cos(degree_radian(player->rot_angel, 0)) * player->speed;
+	player->d_y = sin(degree_radian(player->rot_angel, 0)) * player->speed;
+}
+
+
+
+void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_data *exec)
  {
     int dx;
     int dy;
@@ -32,7 +57,7 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_map *exec)
     else
         sy = -1;
     err = dx - dy;
-    mlx_put_pixel(exec->image, x0, y0, 0x12FF0012);
+    mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF6700FF);
     while (1)
     {
         e2 = 2 * err;
@@ -48,82 +73,86 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_map *exec)
         }
         if ((x0 < 0 || y0 < 0 ||  (x0 == x1 && y0 == y1)))
             break;
-        mlx_put_pixel(exec->image, x0, y0, 0x00000000);
+        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF6700FF);
     }
 }
-double degree_radian(double degree, int type)
-{
-	if (!type) // type == 0 => degree to rad
-		return (degree * (M_PI / 180));
-	return (degree * (180 / M_PI));
-}
 
-void ft_put_player(t_map *data, mlx_image_t *image)
+
+
+
+
+
+void ft_put_player(t_data *data, mlx_image_t *image)
 {
 	int i = 0;
 	int j = 0;
-	data->player->redius = SQUER / 8;
-	i =  data->player->y - data->player->redius;
-	while (i <  data->player->y + data->player->redius)
+	//data->player->redius = SQUER / 8;
+	i =  data->player->pl_y - data->player->redius;
+	while (i <  data->player->pl_y + data->player->redius)
 	{
-		j = data->player->x - data->player->redius;
-		while (j < data->player->x + data->player->redius)
+		j = data->player->pl_x - data->player->redius;
+		while (j < data->player->pl_x + data->player->redius)
 		{
-			if (pow(j - data->player->x, 2) + pow(i -  data->player->y, 2) <= pow(data->player->redius, 2))
-				mlx_put_pixel(image, j, i, 0xD4EBF8);
+			if (pow(j - data->player->pl_x, 2) + pow(i -  data->player->pl_y, 2) <= pow(data->player->redius, 2))
+				mlx_put_pixel(image, j, i, 0xFF6700FF);
 			j++;
 		}
 		i++;
 	}
-	data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 30;
-	data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 30;
-	bresenham_line_algo2(data->player->y, data->player->x, data->player->d_y, data->player->d_x, data);
+	data->player->d_x = data->player->pl_x + cos(degree_radian(data->player->ang, 0)) * 120;
+	data->player->d_y = data->player->pl_y + sin(degree_radian(data->player->ang, 0)) * 120;
+	bresenham_line_algo2(data->player->pl_y, data->player->pl_x, data->player->d_y, data->player->d_x, data);
 }
 
-void rander_2d_map(t_map *data, mlx_image_t *image)
+
+void ft_put_map(t_data *data)
 {
-	int i = 0;
-	int j = 0;
-	while (i < data->lines_number * SQUER)
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < data->height * SQUER)
 	{
 		j = 0;
-		while (j < data->big_len * SQUER)
+		while (j < data->weight * SQUER)
 		{
-			if (data->map[i / SQUER][j/SQUER] == '1')
-				mlx_put_pixel(image, j, i, 255);
+			if (data->map[i / SQUER][j / SQUER] == '1')
+				mlx_put_pixel(data->mlx->image, j, i, 0x3A6EA5FF);
 			else
-				mlx_put_pixel(image, j, i, 0xFFFFFFFF);
-			if (j % SQUER == 0 || i % SQUER == 0)
-				mlx_put_pixel(image, j, i, 255);
+			{
+				mlx_put_pixel(data->mlx->image, j, i, 0xEBEBEBFF);
+				if (j % SQUER == 0 || i % SQUER == 0)
+					mlx_put_pixel(data->mlx->image, j, i, 0xC0C0C0FF);
+			}
 			j++;
 		}
 		i++;
 	}
-	ft_put_player(data, image);
+	ft_put_player(data, data->mlx->image);
 }
 
 void ft_handek_actions(void *param)
 {
-	t_map *data = (t_map *)param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	t_data *data = (t_data *)param;
+	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_RIGHT))
 	{
 		data->player->turn_dir = 1;
 		data->player->ang += 2;
 		if (data->player->ang > 360)
 			data->player->ang = data->player->ang - 360;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_LEFT))
 	{
 		data->player->turn_dir = -1;
 		data->player->ang -= 2;
 		if (data->player->ang < 0)
 			data->player->ang = 360 + data->player->ang;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		data->player->x += 2;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		data->player->x -= 2;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_D))
+		data->player->pl_x += 2;
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_A))
+		data->player->pl_x -= 2;
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_W))
 	{
 		if (data->player->ang == 1)
 		{	
@@ -136,46 +165,29 @@ void ft_handek_actions(void *param)
 			if (data->player->ang < 0)
 				data->player->ang += 360;
 		}
-		data->player->x += cos(degree_radian(data->player->ang, 0));
-		data->player->y += sin(degree_radian(data->player->ang, 0));
+		data->player->pl_x += cos(degree_radian(data->player->ang, 0)) * 2;
+		data->player->pl_y += sin(degree_radian(data->player->ang, 0)) * 2;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_S))
 	{
-		data->player->x -= cos(degree_radian(data->player->ang, 0)) * 2 * 1;
-		data->player->y -= sin(degree_radian(data->player->ang, 0)) * 2 * 1;
+		data->player->pl_x -= cos(degree_radian(data->player->ang, 0)) * 2;
+		data->player->pl_y -= sin(degree_radian(data->player->ang, 0)) * 2;
 	}
-	rander_2d_map(data, data->image);
+	ft_put_map(data);
 }
 
-void ray_casting(t_map *data)
+void rander_2d_map(t_data *data, t_graph *mlx)
 {
-	data->player->rot_ang = M_PI / 2;
-	data->player->p_speed = 4;
-	data->player->turn_dir = 0;
-	data->player->ang = 90;
-	data->player->d_x = data->player->x + cos(degree_radian(data->player->ang, 0)) * 1 * 40;
-	data->player->d_y = data->player->y + sin(degree_radian(data->player->ang, 0)) * 1 * 40;
-	data->mlx = mlx_init(data->big_len * SQUER, data->lines_number * SQUER, "Cub3D", false);
-	data->image = mlx_new_image(data->mlx, data->big_len * SQUER, data->lines_number * SQUER);
-	mlx_image_to_window(data->mlx, data->image, 0, 0);
-	rander_2d_map(data, data->image);
-	mlx_loop_hook(data->mlx,ft_handek_actions, data);
-	mlx_loop(data->mlx);
+	mlx->mlx = mlx_init(data->weight * SQUER, data->height * SQUER, "CUB3D", false);
+	mlx->image = mlx_new_image(mlx->mlx, data->weight * SQUER, data->height * SQUER);
+	mlx_image_to_window(data->mlx->mlx, data->mlx->image, 0, 0);
+	ft_put_map(data);
+	mlx_loop_hook(data->mlx->mlx,ft_handek_actions, data);
+	mlx_loop(mlx->mlx);
 }
 
-/*
-
-111111111111111
-1111100011000011111
-111100001111111111111
-1110000000100000000001
-11000000100001111111111
-1001011111000011
-11000010000111111111111111111
-11100000011110000000000000001
-111100000000000000000N0000001
-11111000111110000000000000001
-111111111111111111111111111111
-
-
-*/
+void ray_casting(t_data *data, t_graph *mlx)
+{
+	ft_init_data(data);
+	rander_2d_map(data, mlx);
+}

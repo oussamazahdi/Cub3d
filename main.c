@@ -6,28 +6,28 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/27 11:38:34 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:17:07 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_data;
+//typedef struct s_data
+//{
+//	void	*img;
+//	char	*addr;
+//	int		bpp;
+//	int		line_length;
+//	int		endian;
+//}	t_data;
 
-void	put_pixel(t_data *data, int x, int y, int color)
-{
-	char *dst;
+//void	put_pixel(t_data *data, int x, int y, int color)
+//{
+//	char *dst;
 
-	dst = data->addr + (x * (data->bpp/8) + y * data->line_length);
-	*(unsigned int *)dst = color;
-}
+//	dst = data->addr + (x * (data->bpp/8) + y * data->line_length);
+//	*(unsigned int *)dst = color;
+//}
 
 int	check_rgb(char **ptr)
 {
@@ -52,7 +52,7 @@ int	check_rgb(char **ptr)
 	return (0);
 }
 
-int	rgb_parse(char *str, t_map *utils)
+int	rgb_parse(char *str, t_data *utils)
 {
 	char	**ptr;
 	int		a;
@@ -93,7 +93,7 @@ int	space_skip(char *str)
 	return (0);
 }
 
-int	parse1(char *str, int *i, t_map *utils, int *in)
+int	parse1(char *str, int *i, t_data *utils, int *in)
 {
 	(void)i;
 	(void)str;
@@ -120,7 +120,7 @@ int	checker(char *str)
 	return (1);
 }
 
-int	parse(char *str, int *i, t_map *utils, int *in)
+int	parse(char *str, int *i, t_data *utils, int *in)
 {
 	(void)in;
 	if (ft_strncmp(str, "NO ", 3) == 0)
@@ -162,7 +162,7 @@ int	parse(char *str, int *i, t_map *utils, int *in)
 	return (0);
 }
 
-int	get_content(t_list **lst, int *fd, t_map *utils)
+int	get_content(t_list **lst, int *fd, t_data *utils)
 {
 	t_list	*node;
 	char	*ptr;
@@ -182,6 +182,8 @@ int	get_content(t_list **lst, int *fd, t_map *utils)
 	ptr = str;
 	while (str)
 	{
+		while (*ptr == ' ')
+			ptr++;
 		if (*ptr == '\t')
 			return (1);
 		if (parse(str, &j, utils, &in) == 1)
@@ -234,8 +236,12 @@ void	ft_strcpy(const char *src, char *dst)
 int	sides_map(char **map, int y)
 {
 	int	i;
+	int	j;
+	int	len;
 
 	i = 0;
+	j = 0;
+	len = 0;
 	while (map  && map[0] && map[0][i])
 	{
 		if (map[0][i] == '1' || map[0][i] == '\n')
@@ -251,6 +257,19 @@ int	sides_map(char **map, int y)
 		else
 			return (1);
 	}
+	i = 0;
+	while (map[i])
+	{
+		while (map[i][j] == ' ')
+			j++;
+		while (map[i][len])
+			len++;
+		if ((map[i][j] != '1' && map[i][j] != '\n') || (map[i][len - 1] != '1' && map[i][len - 1] != '\n'))
+			return (1);
+		i++;
+		len = 0;
+		j = 0;
+	}
 	return (0);
 }
 
@@ -261,8 +280,9 @@ int	check_map2(char **map, int i, int j, int y)
 	k = 0;
 	if (i == y)
 		return (0);
+	// write(1, &map[1][25], 1);
 	if (map[i - 1][j] != '1' && map[i - 1][j] != 'N' && map[i - 1][j] != '0')
-		return (write(1, &map[i - 1][j - 10], 1), 1);
+		return (1);
 	if (j > 0 && map[i][j - 1] != '1' && map[i][j - 1] != 'N' && map[i][j - 1] != '0')
 		return (1);
 	if (map[i + 1][j] != '1' && map[i + 1][j] != 'N' && map[i + 1][j] != '0')
@@ -275,10 +295,12 @@ int	check_map2(char **map, int i, int j, int y)
 int	check_map(char **map, int y)
 {
 	int	count;
+	int	first;
 	int	i;
 	int	j;
 
 	count = 0;
+	first = 0;
 	i = 1;
 	j = 0;
 	if (sides_map(map, y) == 1)
@@ -287,14 +309,15 @@ int	check_map(char **map, int y)
 	{
 		while (map[i][j])
 		{
-			if (map[i][0] != '1' && map[i][0] != '\n')
-				return (1);
+			while (map[i][j] == ' ')
+				j++;
+			first = j;
 			if (map[i][j] == 'N')
 				count++;
 			if (count > 1)
 				return (1);
 			if (map[i][j] == '0')
-			{	
+			{
 				if (check_map2(map, i, j, y) == 1)
 					return (1);
 			}
@@ -308,7 +331,20 @@ int	check_map(char **map, int y)
 	return (0);
 }
 
-int	filling_map(t_map *utils, int len, int j, t_list *lst)
+void	fill_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (i < 50)
+	{
+		str[i] = ' ';
+		i++;
+	}
+	str[i] = ' ';
+}
+
+int	filling_map(t_data *utils, int len, int j, t_list *lst)
 {
 	int	i;
 
@@ -330,42 +366,12 @@ int	filling_map(t_map *utils, int len, int j, t_list *lst)
 	i = 0;
 	if (!utils->map[i] || check_map(utils->map, j) == 1)
 		return (1);
+	utils->height = j;
+	utils->weight = len;
 	return (0);
 }
 
-void ft_player_position(t_map *data, t_player *player)
-{
-	int		i;
-	int		j;
-	
-	if (!data->map || !*data->map)
-		return ;
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (ft_strchr("NSEW", data->map[i][j]))
-			{
-				player->x = j * SQUER + SQUER / 2;
-				player->y = i * SQUER + SQUER / 2;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_fill_info(t_map *data, t_player *player)
-{
-	data->big_len = ft_grand_line(data->map);
-	data->lines_number = ft_double_size(data->map);
-	ft_player_position(data, player);
-}
-
-void	*parsing_map(t_map *utils, int *fd)
+void	*parsing_map(t_data *utils, int *fd)
 {
 	t_list	*lst;
 	t_list	*node;
@@ -381,12 +387,10 @@ void	*parsing_map(t_map *utils, int *fd)
 	len = lines_lenght(lst, &j);
 	if (filling_map(utils, len, j, lst) == 1)
 		return (write(2, "parse error\n", 13), NULL);
-	utils->player = malloc(sizeof(t_player));
-	ft_fill_info(utils, utils->player);
 	return (NULL);
 }
 
-void	utils_init(t_map *utils)
+void	utils_init(t_data *utils)
 {
 	utils->EA = NULL;
 	utils->WE = NULL;
@@ -396,15 +400,45 @@ void	utils_init(t_map *utils)
 	utils->F_rgb = -1;
 }
 
-int main()
+void	player_detection(char **map, t_player *pl)
 {
-	t_map	utils;
-	int	fd;
+	int	i;
+	int	j;
 
-	utils_init(&utils);
-	parsing_map(&utils, &fd);
-	ray_casting(&utils);
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		while (map[i][j])
+		{	
+			if (map[i][j] == 'N')
+			{
+				pl->pl_x = j;
+				pl->pl_y = i;
+				return ;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
 }
 
+//void ft_init_data(t_data *data, t_player *player)
+//{
+//}
 
+int main()
+{
+	t_data	utils;
+	t_player	pl;
+	t_graph	mlx;
+	int	fd;
 
+	utils.player = &pl;
+	utils.mlx = &mlx;
+	utils_init(&utils);
+	parsing_map(&utils, &fd);
+	player_detection(utils.map, &pl);
+	ray_casting(&utils, &mlx);
+}

@@ -1,7 +1,19 @@
-SRC			=	main.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c utils/ft_strcmp.c \
-				utils/ft_lstadd_back_bonus.c utils/ft_lstnew_bonus.c utils/ft_split.c utils/ft_atoi.c \
-				utils/ft_strncmp.c\
-				utils/utils1.c utils/ft_strshr.c ray_casting.c\
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/29 09:15:18 by ozahdi            #+#    #+#              #
+#    Updated: 2024/11/29 11:01:36 by ozahdi           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC			=	main.c ray_casting.c\
+				get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+				utils/ft_strcmp.c utils/ft_lstadd_back_bonus.c utils/ft_lstnew_bonus.c\
+				utils/ft_split.c utils/ft_atoi.c utils/ft_strncmp.c utils/ft_strshr.c\
 
 OBJ			=	$(SRC:.c=.o)
 
@@ -11,8 +23,6 @@ FLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
 NAME			=	cub3d
 
-MLX_DIR		=	./MLX42  # Replace with your MLX42 path
-#MLX_FLAGS		=	-I $(MLX_DIR)/include -L$(MLX_DIR)/build -lMLX42 -lglfw
 MLX_FLAGS		=	-I./MLX42/include -L./MLX42/build -L/Users/ozahdi/.brew/opt/glfw/lib -lMLX42 -lglfw
 
 all			:	$(NAME)
