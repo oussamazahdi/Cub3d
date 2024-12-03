@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/29 12:52:24 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/02 20:45:35 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 # include "get_next_line/get_next_line.h"
 
 # define SQUER 32
+# define FOV_ANG 60
+# define RAY_NBR 30
+
+
+//# define RED     "\x1b[31m"
+//# define GREEN   "\x1b[32m"
+//# define YELLOW  "\x1b[33m"
+//# define BLUE    "\x1b[34m"
+//# define MAGENTA "\x1b[35m"
+//# define CYAN    "\x1b[36m"
+//# define WHITE   "\x1b[37m"
+//# define ORANGE  "\x1b[38;5;214m"
+//# define RESET   "\x1b[0m"
+//# define BOLD     "\x1b[1m"
 
 typedef struct s_graph
 {
@@ -31,17 +45,19 @@ typedef struct s_graph
 
 typedef struct s_player
 {
+	double			pl_x;
+	double			pl_y;
+	double			d_x;
+	double			d_y;
 	int			redius;
-	int			si_pl;
-	int			pl_x;
-	int			ang;
-	int			pl_y;
-	int			d_x;
-	int			d_y;
+	int			turn_dir;
+	int			walk_dir;
 	double		rot_angel;
 	int			speed;
-	int			turn_dir;
+	double		rot_speed;
+	int			ang;
 	int			hitbox;
+	int			si_pl;
 }	t_player;
 
 typedef struct s_data
