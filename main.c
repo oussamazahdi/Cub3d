@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/11/29 12:17:07 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/03 15:56:34 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,9 +424,6 @@ void	player_detection(char **map, t_player *pl)
 	}
 }
 
-//void ft_init_data(t_data *data, t_player *player)
-//{
-//}
 
 int main()
 {

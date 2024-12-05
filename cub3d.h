@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/02 20:45:35 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/04 12:27:24 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 30
+# define RAY_NBR 16
 
 
 //# define RED     "\x1b[31m"
@@ -36,6 +36,22 @@
 //# define ORANGE  "\x1b[38;5;214m"
 //# define RESET   "\x1b[0m"
 //# define BOLD     "\x1b[1m"
+
+
+
+typedef struct s_rays
+{
+	double		ray_ang;
+	double		wallhitx;
+	double		wallhity;
+	double		distance;
+	int			facing_down;
+	int			facing_up;
+	int			facing_right;
+	int			facing_left;
+	int			d_x;
+	int			d_y;
+}	t_rays;
 
 typedef struct s_graph
 {
@@ -63,6 +79,7 @@ typedef struct s_player
 typedef struct s_data
 {
 	t_graph		*mlx;
+	t_rays		*rays;
 	char			*NO;
 	char			*EA;
 	char			*SO;
