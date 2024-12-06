@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/02 20:45:35 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/06 18:05:56 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 30
+# define RAY_NBR 16
 
 
 //# define RED     "\x1b[31m"
@@ -36,6 +36,38 @@
 //# define ORANGE  "\x1b[38;5;214m"
 //# define RESET   "\x1b[0m"
 //# define BOLD     "\x1b[1m"
+
+
+
+typedef struct s_bres
+{
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			e2;
+	int			err;
+}	t_bres;
+typedef struct s_rays
+{
+	double		ray_facing_ang;
+	int			xstep;
+	int			ystep;
+	int			xintercept;
+	int			yintercept;
+	int			nextHorzTouchX;
+	int			nextHorzTouchY;
+	double		ray_ang;
+	double		wallhitx;
+	double		wallhity;
+	double		distance;
+	int			facing_down;
+	int			facing_up;
+	int			facing_right;
+	int			facing_left;
+	int			d_x;
+	int			d_y;
+}	t_rays;
 
 typedef struct s_graph
 {
@@ -63,6 +95,8 @@ typedef struct s_player
 typedef struct s_data
 {
 	t_graph		*mlx;
+	t_rays		*rays;
+	t_bres		*bres;
 	char			*NO;
 	char			*EA;
 	char			*SO;
@@ -93,9 +127,19 @@ char		**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strshr(char *s, char c);
-int		ft_double_size(char **map);
-int		ft_grand_line(char **map);
+//int		ft_double_size(char **map);
+//int		ft_grand_line(char **map);
 
 void ray_casting(t_data *data, t_graph *mlx);
+int ft_check_wall(t_data *data, double x, double y);
+double degree_radian(double degree, int type);
+double normalaize_angle(double angle);
+void ft_release_keys(t_data *data);
+//void bresenham(t_data *data, int x, int y);
+void bresenham(int y0, int x0, int y1, int x1, t_data *exec);
+void ft_put_player(t_data *data, mlx_image_t *image);
+void ft_put_map(t_data *data);
+void ft_handek_actions(void *param);
+
 
 #endif
