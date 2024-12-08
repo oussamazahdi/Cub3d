@@ -6,7 +6,7 @@
 #    By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/29 09:15:18 by ozahdi            #+#    #+#              #
-#    Updated: 2024/12/05 12:30:44 by ozahdi           ###   ########.fr        #
+#    Updated: 2024/12/07 15:40:38 by ozahdi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC			=	main.c\
 				utils/ft_strcmp.c utils/ft_lstadd_back_bonus.c utils/ft_lstnew_bonus.c\
 				utils/ft_split.c utils/ft_atoi.c utils/ft_strncmp.c utils/ft_strshr.c\
 				ray_casting/hooks.c ray_casting/put_map.c ray_casting/ray_casting.c \
-				ray_casting/ray_casting_utils.c \
+				ray_casting/ray_casting_utils.c ray_casting/cast_wall.c\
 
 OBJ			=	$(SRC:.c=.o)
 

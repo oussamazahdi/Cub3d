@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/06 18:05:56 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/08 16:21:29 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 16
+# define RAY_NBR 60
 
 
 //# define RED     "\x1b[31m"
@@ -48,8 +48,12 @@ typedef struct s_bres
 	int			e2;
 	int			err;
 }	t_bres;
+
 typedef struct s_rays
 {
+	//bool			WallHitFlag;
+	bool			HorizontalWallHit;
+	bool			VerticalWallHit;
 	double		ray_facing_ang;
 	int			xstep;
 	int			ystep;
@@ -57,9 +61,13 @@ typedef struct s_rays
 	int			yintercept;
 	int			nextHorzTouchX;
 	int			nextHorzTouchY;
+	int			nextVerticalTouchX;
+	int			nextVerticalTouchY;
 	double		ray_ang;
 	double		wallhitx;
 	double		wallhity;
+	double		VertWallHitx;
+	double		VertWallHity;
 	double		distance;
 	int			facing_down;
 	int			facing_up;
@@ -140,6 +148,9 @@ void bresenham(int y0, int x0, int y1, int x1, t_data *exec);
 void ft_put_player(t_data *data, mlx_image_t *image);
 void ft_put_map(t_data *data);
 void ft_handek_actions(void *param);
+
+
+void		CastAllRays(t_data *data, t_player *player);
 
 
 #endif
