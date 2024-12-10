@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/08 16:21:29 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/09 15:52:51 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 60
+# define RAY_NBR 1
 
 
 //# define RED     "\x1b[31m"
@@ -51,10 +51,10 @@ typedef struct s_bres
 
 typedef struct s_rays
 {
-	//bool			WallHitFlag;
+	bool			WasHitVertical;
 	bool			HorizontalWallHit;
 	bool			VerticalWallHit;
-	double		ray_facing_ang;
+	//double		ray_facing_ang;
 	int			xstep;
 	int			ystep;
 	int			xintercept;
@@ -64,11 +64,11 @@ typedef struct s_rays
 	int			nextVerticalTouchX;
 	int			nextVerticalTouchY;
 	double		ray_ang;
-	double		wallhitx;
-	double		wallhity;
-	double		VertWallHitx;
-	double		VertWallHity;
-	double		distance;
+	int			wallhitx;
+	int			wallhity;
+	int			VertWallHitx;
+	int			VertWallHity;
+	int			distance;
 	int			facing_down;
 	int			facing_up;
 	int			facing_right;
@@ -102,6 +102,8 @@ typedef struct s_player
 
 typedef struct s_data
 {
+
+	bool			change;
 	t_graph		*mlx;
 	t_rays		*rays;
 	t_bres		*bres;

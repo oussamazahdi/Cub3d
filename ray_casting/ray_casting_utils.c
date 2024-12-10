@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:33:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/06 17:32:53 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/09 16:39:26 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ double degree_radian(double degree, int type)
 
 double normalaize_angle(double angle)
 {
+	//if (angle < 0)
+	//	angle += (2 * M_PI);
+	//else if (angle > (2 * M_PI))
+	//	angle -= (2 * M_PI);
+	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
-		angle += (2 * M_PI);
-	else if (angle > (2 * M_PI))
-		angle -= (2 * M_PI);
+		angle = (2 * M_PI) + angle;
 	return angle;
 }
 
@@ -61,6 +64,7 @@ void ft_release_keys(t_data *data)
 		player->turn_dir = 0;
 	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_S))
 		player->turn_dir = 0;
+	data->change = false;
 }
 
 //static void bresenham_con(t_data *data, int x, int y, t_bres *bres)
