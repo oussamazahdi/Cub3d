@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:14:18 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/09 21:03:47 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/10 18:51:02 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,19 +181,20 @@ void		CastAllRays(t_data *data, t_player *player)
 	int		i;
 	int		columId;
 	double	plus;
-	//int dx, dy;
+	int dx, dy;
 
 	columId = 0;
+	(void) player;
 	data->rays = &ray;
 	initray(&ray, data);
 	i = -1;
 	plus = degree_radian(FOV_ANG, 0) / RAY_NBR;
 	while (++i < RAY_NBR)
 	{
-		cast(data, player, &ray, columId);
-		//dx = data->player->pl_x + cos(ray.ray_ang) * 70;
-		//dy = data->player->pl_y + sin(ray.ray_ang) * 70;
-		//bresenham(data->player->pl_y, data->player->pl_x, dy, dx, data);
+		//cast(data, player, &ray, columId);
+		dx = data->player->pl_x + cos(ray.ray_ang) * 90;
+		dy = data->player->pl_y + sin(ray.ray_ang) * 90;
+		bresenham(data->player->pl_y, data->player->pl_x, dy, dx, data);
 		ray.ray_ang += plus;
 		ray.ray_ang = normalaize_angle(ray.ray_ang);
 		columId++;
