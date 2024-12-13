@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/13 13:59:57 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 18:52:30 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 60
+# define RAY_NBR 1
 
 
 //# define RED     "\x1b[31m"
@@ -170,6 +170,7 @@ void ft_put_player(t_data *data, mlx_image_t *image);
 void ft_put_map(t_data *data);
 void ft_handek_actions(void *param);
 void		CastAllRays(t_data *data, t_player *player);
+void bresenha_debug(int y0, int x0, int y1, int x1, t_data *exec);
 
 
 #endif

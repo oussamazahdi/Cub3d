@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:33:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/13 13:59:15 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 18:51:53 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,51 @@ void bresenham(int y0, int x0, int y1, int x1, t_data *exec)
           	y0 += sy; 
         }
         if ((x0 < 0 || y0 < 0 || x0 > exec->weight * 32 || y0 > exec->height * 32 ||  (x0 == x1 && y0 == y1)))
+            break;
+    }
+    ft_release_keys(exec);
+}
+void bresenha_debug(int y0, int x0, int y1, int x1, t_data *exec)
+{
+    int dx;
+    int dy;
+    int sx ;
+    int sy ;
+    int err;
+    int e2;
+
+    dx = abs(x1 - x0);
+    dy = abs(y1 - y0);
+    if (x0 < x1)
+        sx = 1;
+    else 
+        sx = -1;
+    if (y0 < y1)
+        sy = 1;
+    else
+        sy = -1;
+    err = dx - dy;
+    if (x0 < 0 || y0 < 0)
+	return;
+	int x, y;
+    while (1)
+    {
+        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF6700FF);
+        e2 = 2 * err;
+        if (e2 > -dy)
+        {
+          	err -= dy;
+          	x0 += sx;
+        }
+        if (e2 < dx)
+         {
+          	err += dx;
+          	y0 += sy; 
+        }
+	   y = y1 / SQUER;
+	   x = x1 / SQUER;
+        if (x0 < 0 || y0 < 0 || x0 > exec->weight * 32 || \
+	   	y0 > exec->height * 32 ||  (x0 == x1 && y0 == y1) || exec->map[y][x] == '1')
             break;
     }
     ft_release_keys(exec);

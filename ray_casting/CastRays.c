@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:04:10 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/13 14:07:07 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 18:55:37 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void RayFacing(t_cast *ray, t_facing *facing)
 int RayWall(t_data *data, int x, int y)
 {
 	if (data->map[y / SQUER] && data->map[y / SQUER][x / SQUER] && data->map[y / SQUER][x / SQUER] == '1')
-		return 1;
+		return (1);
 	return 0;
 }
 
@@ -95,14 +95,16 @@ int RayWall(t_data *data, int x, int y)
 void VerticatIntercept(t_cast *ray, t_data *data, t_player *player, t_facing *facing)
 {
 	ray->xintercept = floor(player->pl_x / SQUER) * SQUER;
-	ray->yintercept = player->pl_y + (ray->xintercept - player->pl_x) * tan(ray->ray_ang); 
 	if (facing->facing_right == 1)
 		ray->xintercept += SQUER;
+	ray->yintercept = player->pl_y + ((ray->xintercept - player->pl_x) * tan(ray->ray_ang)); 
 	ray->xstep = SQUER;
 	ray->ystep = ray->xstep * tan(ray->ray_ang);
 	if (facing->facing_left == 1)
 		ray->xstep *= -1;
-	if ((facing->facing_up && ray->ystep > 0) || (facing->facing_down && ray->ystep < 0))
+	if (facing->facing_up && ray->ystep > 0)
+		ray->ystep *= -1;
+	if (facing->facing_down && ray->ystep < 0)
 		ray->ystep *= -1;
 	ray->VWallHitx = ray->xintercept;
 	ray->VWallHity = ray->yintercept;
@@ -131,13 +133,17 @@ void HorizontalIntercept(t_cast *ray, t_data *data, t_player *player, t_facing *
 		ray->yintercept += SQUER;
 	if (facing->facing_up)
 		ray->yintercept--;
+
 	ray->xintercept = floor(player->pl_x + (ray->yintercept - player->pl_y) / tan(ray->ray_ang));
+
 	ray->ystep = SQUER;
 	if (facing->facing_up)
 		ray->ystep *= -1;
+
 	ray->xstep = ray->ystep / tan(ray->ray_ang);
-	if ((facing->facing_left == 1 && ray->xstep > 0) || (facing->facing_right == 1 && ray->xstep < 0))
+	if ((facing->facing_left == 1 && ray->xstep > 0))
 		ray->xstep *= -1;
+
 	ray->HWallHitx = ray->xintercept;
 	ray->HWallHity = ray->yintercept;
 	while (ray->HWallHitx >= 0 && ray->HWallHity >= 0 && ray->HWallHitx < data->weight * SQUER  && ray->HWallHity < data->height * SQUER)
@@ -153,9 +159,47 @@ void HorizontalIntercept(t_cast *ray, t_data *data, t_player *player, t_facing *
 			ray->HWallHity += ray->ystep;
 		}
 	}
-	//put_inter(data, ray->HWallHitx, ray->HWallHity);
-	//bresenham(player->pl_y, player->pl_x, ray->HWallHity, ray->HWallHity, data);
+	put_inter(data, ray->HWallHitx, ray->HWallHity);
+	bresenham(player->pl_y, player->pl_x, ray->HWallHity, ray->HWallHitx, data);
 }
+//void HorizontalIntercept(t_cast *ray, t_data *data, t_player *player, t_facing *facing)
+//{
+//	ray->yintercept = floor(player->pl_y / SQUER) * SQUER;
+//	if (ray->facing->facing_down == 1)
+//		ray->yintercept += SQUER;
+//	if (facing->facing_up)
+//		ray->yintercept--;
+
+//	ray->xintercept = floor(player->pl_x + (ray->yintercept - player->pl_y) / tan(ray->ray_ang));
+
+//	ray->ystep = SQUER;
+//	if (facing->facing_up)
+//		ray->ystep *= -1;
+
+//	ray->xstep = ray->ystep / tan(ray->ray_ang);
+//	if ((facing->facing_left == 1 && ray->xstep > 0))
+//		ray->xstep *= -1;
+//	if ((facing->facing_right == 1 && ray->xstep < 0))
+//		ray->xstep *= -1;
+
+//	ray->HWallHitx = ray->xintercept;
+//	ray->HWallHity = ray->yintercept;
+//	while (ray->HWallHitx >= 0 && ray->HWallHity >= 0 && ray->HWallHitx < data->weight * SQUER  && ray->HWallHity < data->height * SQUER)
+//	{
+//		if (RayWall(data, ray->HWallHitx, ray->HWallHity))
+//		{
+//			ray->WallHitHorz = true;
+//			break;
+//		}
+//		else
+//		{
+//			ray->HWallHitx += ray->xstep;
+//			ray->HWallHity += ray->ystep;
+//		}
+//	}
+//	//put_inter(data, ray->HWallHitx, ray->HWallHity);
+//	//bresenham(player->pl_y, player->pl_x, ray->HWallHity, ray->HWallHity, data);
+//}
 
 double FoundDistance(double x0, double y0, double x1, double y1)
 {
@@ -172,20 +216,21 @@ void CastRays(t_cast *ray, t_data *data, t_player *player)
 	ray->facing = &facing;
 	//RayFacing(data, &facing);
 	RayFacing(ray, &facing);
+	printf("up[%d], down[%d], right[%d], left[%d]\n", facing.facing_up, facing.facing_down, facing.facing_right, facing.facing_left);
 	HorizontalIntercept(ray, data, player, &facing);
-	VerticatIntercept(ray, data, player, &facing);
-	ray->HorzDistance = FoundDistance(player->pl_x, player->pl_y, ray->HWallHitx, ray->HWallHity);
-	ray->VertDistance = FoundDistance(player->pl_x, player->pl_y, ray->VWallHitx, ray->VWallHity);
-	ray->d_x = ray->VWallHitx;
-	ray->d_y = ray->VWallHity;
-	if (ray->HorzDistance < ray->VertDistance)
-	{
-		ray->d_x = ray->HWallHitx;
-		ray->d_y = ray->HWallHity;
-	}
-	//mlx_put_pixel(data->mlx->image, ray->d_x, ray->d_y, 0x000000FF);
-	//put_inter(data, ray->d_x, ray->d_y);
-	bresenham(player->pl_y, player->pl_x, ray->d_y, ray->d_x, data);
+	//VerticatIntercept(ray, data, player, &facing);
+	//ray->HorzDistance = FoundDistance(player->pl_x, player->pl_y, ray->HWallHitx, ray->HWallHity);
+	//ray->VertDistance = FoundDistance(player->pl_x, player->pl_y, ray->VWallHitx, ray->VWallHity);
+	//ray->d_x = ray->VWallHitx;
+	//ray->d_y = ray->VWallHity;
+	//if (ray->HorzDistance < ray->VertDistance)
+	//{
+	//	ray->d_x = ray->HWallHitx;
+	//	ray->d_y = ray->HWallHity;
+	//}
+	////mlx_put_pixel(data->mlx->image, ray->d_x, ray->d_y, 0x000000FF);
+	////put_inter(data, ray->d_x, ray->d_y);
+	//bresenham(player->pl_y, player->pl_x, ray->d_y, ray->d_x, data);
 }
 void InitVar(t_data *data, t_cast *ray)
 {
