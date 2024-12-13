@@ -6,28 +6,11 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:34 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 19:11:20 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//typedef struct s_data
-//{
-//	void	*img;
-//	char	*addr;
-//	int		bpp;
-//	int		line_length;
-//	int		endian;
-//}	t_data;
-
-//void	put_pixel(t_data *data, int x, int y, int color)
-//{
-//	char *dst;
-
-//	dst = data->addr + (x * (data->bpp/8) + y * data->line_length);
-//	*(unsigned int *)dst = color;
-//}
 
 int	check_rgb(char **ptr)
 {
@@ -280,7 +263,6 @@ int	check_map2(char **map, int i, int j, int y)
 	k = 0;
 	if (i == y)
 		return (0);
-	// write(1, &map[1][25], 1);
 	if (map[i - 1][j] != '1' && map[i - 1][j] != 'N' && map[i - 1][j] != '0')
 		return (1);
 	if (j > 0 && map[i][j - 1] != '1' && map[i][j - 1] != 'N' && map[i][j - 1] != '0')

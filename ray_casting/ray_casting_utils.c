@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:33:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/06 17:32:53 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 19:11:48 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,3 +144,5 @@ void bresenham(int y0, int x0, int y1, int x1, t_data *exec)
     }
     ft_release_keys(exec);
 }
+
+//new line to new commit
