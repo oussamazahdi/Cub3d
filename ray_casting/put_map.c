@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:31:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/06 18:07:15 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 14:00:18 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void ft_put_player(t_data *data, mlx_image_t *image)
 		}
 		i++;
 	}
-	data->player->d_x = data->player->pl_x + cos(data->player->rot_angel) * 45;
-	data->player->d_y = data->player->pl_y + sin(data->player->rot_angel) * 45;
-	bresenham(data->player->pl_y, data->player->pl_x, data->player->d_y, data->player->d_x, data);
+	CastAllRays(data, data->player);
+	data->player->d_x = data->player->pl_x + cos(data->player->rot_angel) * 150;
+	data->player->d_y = data->player->pl_y + sin(data->player->rot_angel) * 150;
+	//bresenham(data->player->pl_y, data->player->pl_x, data->player->d_y, data->player->d_x, data);
 	//bresenham(data, data->player->pl_x, data->player->pl_y);
 }
 
@@ -49,6 +50,8 @@ void ft_put_map(t_data *data)
 				mlx_put_pixel(data->mlx->image, j, i, 0x3A6EA5FF);
 			else
 				mlx_put_pixel(data->mlx->image, j, i, 0xEBEBEBFF);
+			if (j % SQUER == 0 || i % SQUER == 0)
+					mlx_put_pixel(data->mlx->image, j, i, 0xC0C0C0FF);
 			j++;
 		}
 		i++;

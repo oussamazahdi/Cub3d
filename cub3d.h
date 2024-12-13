@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/06 18:05:56 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/13 13:59:57 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 16
+# define RAY_NBR 60
 
 
 //# define RED     "\x1b[31m"
@@ -38,6 +38,35 @@
 //# define BOLD     "\x1b[1m"
 
 
+
+typedef struct s_facing
+{
+	int			facing_down;
+	int			facing_up;
+	int			facing_right;
+	int			facing_left;
+}t_facing;
+
+typedef struct s_cast
+{
+	bool			WallHitVert;
+	bool			WallHitHorz;
+	double		HorzDistance;
+	double		VertDistance;
+	double		ray_ang;
+	double		distance;
+	int			d_x;
+	int			d_y;
+	int			xstep;
+	int			ystep;
+	int			HWallHitx;
+	int			HWallHity;
+	int			VWallHitx;
+	int			VWallHity;
+	int			xintercept;
+	int			yintercept;
+	t_facing		*facing;
+}	t_cast;
 
 typedef struct s_bres
 {
@@ -87,7 +116,7 @@ typedef struct s_player
 	double		rot_angel;
 	int			speed;
 	double		rot_speed;
-	int			ang;
+	//double		ang;
 	int			hitbox;
 	int			si_pl;
 }	t_player;
@@ -95,7 +124,8 @@ typedef struct s_player
 typedef struct s_data
 {
 	t_graph		*mlx;
-	t_rays		*rays;
+	t_cast		*ray;
+	//t_rays		*rays;
 	t_bres		*bres;
 	char			*NO;
 	char			*EA;
@@ -135,11 +165,11 @@ int ft_check_wall(t_data *data, double x, double y);
 double degree_radian(double degree, int type);
 double normalaize_angle(double angle);
 void ft_release_keys(t_data *data);
-//void bresenham(t_data *data, int x, int y);
 void bresenham(int y0, int x0, int y1, int x1, t_data *exec);
 void ft_put_player(t_data *data, mlx_image_t *image);
 void ft_put_map(t_data *data);
 void ft_handek_actions(void *param);
+void		CastAllRays(t_data *data, t_player *player);
 
 
 #endif
