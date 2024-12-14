@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:31:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/06 18:07:15 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/14 13:49:00 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void ft_put_player(t_data *data, mlx_image_t *image)
 	}
 	data->player->d_x = data->player->pl_x + cos(data->player->rot_angel) * 45;
 	data->player->d_y = data->player->pl_y + sin(data->player->rot_angel) * 45;
+	CastAllRays(data, data->player);
 	bresenham(data->player->pl_y, data->player->pl_x, data->player->d_y, data->player->d_x, data);
 	//bresenham(data, data->player->pl_x, data->player->pl_y);
 }

@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:26:27 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/06 17:35:24 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/14 13:30:11 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void ft_init_data(t_data *data)
 	player->redius = SQUER / 7;
 	player->speed = 25;
 	player->rot_speed = 2 * (M_PI / 180);
-	player->ang = 30;
-	player->pl_x = player->pl_x * SQUER + SQUER / 2;
-	player->pl_y = player->pl_y * SQUER + SQUER / 2;
+	player->pl_x = player->pl_x * SQUER + floor(SQUER / 2);
+	player->pl_y = player->pl_y * SQUER + floor(SQUER / 2);
 	player->d_x = cos(degree_radian(player->rot_angel, 0)) * player->speed;
 	player->d_y = sin(degree_radian(player->rot_angel, 0)) * player->speed;
 }

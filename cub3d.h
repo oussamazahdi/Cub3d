@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/06 18:05:56 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/14 13:50:19 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 60
-# define RAY_NBR 16
+# define RAY_NBR 1080
 
 
 //# define RED     "\x1b[31m"
@@ -48,26 +48,53 @@ typedef struct s_bres
 	int			e2;
 	int			err;
 }	t_bres;
+
+
+typedef struct s_facing
+{
+//	int			facing_down;
+//	int			facing_up;
+//	int			facing_right;
+//	int			facing_left;
+}	t_facing;
+
 typedef struct s_rays
 {
-	double		ray_facing_ang;
+	t_facing		*facing;
 	int			xstep;
 	int			ystep;
 	int			xintercept;
 	int			yintercept;
-	int			nextHorzTouchX;
-	int			nextHorzTouchY;
-	double		ray_ang;
-	double		wallhitx;
-	double		wallhity;
-	double		distance;
-	int			facing_down;
-	int			facing_up;
-	int			facing_right;
-	int			facing_left;
 	int			d_x;
 	int			d_y;
+	int			horz_wallhitx;
+	int			horz_wallhity;
+	int			vert_wallhitx;
+	int			vert_wallhity;
+	double		distance;
+	double		Vdistance;
+	double		Hdistance;
 }	t_rays;
+//typedef struct s_rays
+//{
+//	double		ray_facing_ang;
+//	int			xstep;
+//	int			ystep;
+//	int			xintercept;
+//	int			yintercept;
+//	int			nextHorzTouchX;
+//	int			nextHorzTouchY;
+//	double		ray_ang;
+//	double		wallhitx;
+//	double		wallhity;
+//	double		distance;
+//	int			facing_down;
+//	int			facing_up;
+//	int			facing_right;
+//	int			facing_left;
+//	int			d_x;
+//	int			d_y;
+//}	t_rays;
 
 typedef struct s_graph
 {
@@ -87,7 +114,6 @@ typedef struct s_player
 	double		rot_angel;
 	int			speed;
 	double		rot_speed;
-	int			ang;
 	int			hitbox;
 	int			si_pl;
 }	t_player;
@@ -140,6 +166,8 @@ void bresenham(int y0, int x0, int y1, int x1, t_data *exec);
 void ft_put_player(t_data *data, mlx_image_t *image);
 void ft_put_map(t_data *data);
 void ft_handek_actions(void *param);
+void CastAllRays(t_data *data, t_player *player);
 
+void SimpelCast(t_data *data);
 
 #endif
