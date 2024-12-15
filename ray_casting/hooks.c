@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:29:09 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 16:21:37 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 17:38:20 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void ft_handek_actions(void *param)
 		data->update = true;
 		player->walk_dir = -1;
 	}
-	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_LEFT)){
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_RIGHT)){
 		data->update = true;
 		player->rot_angel += player->rot_speed;
 		if (player->rot_angel > 2 * M_PI)
 			player->rot_angel -= 2 * M_PI;
 	}
-	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_RIGHT)){
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_LEFT)){
 		data->update = true;
 		player->rot_angel -= player->rot_speed;
 		if (player->rot_angel < 0)
@@ -56,5 +56,8 @@ void ft_handek_actions(void *param)
 		player->pl_y += sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
 	}
 	if (data->update == true)
+	{
 		ft_put_map(data);
+		CastAllRays(data, player);
+	}
 }

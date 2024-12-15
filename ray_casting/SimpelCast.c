@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:38:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 13:07:16 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 17:18:13 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void bresenham_Simpel(int y0, int x0, int y1, int x1, t_data *exec)
 	return;
     while (1)
     {
-        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF670080);
+        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF00000F);
         e2 = 2 * err;
         if (e2 > -dy)
         {

@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/15 16:44:34 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 19:51:34 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SQUER 32
 # define FOV_ANG 66
-# define RAY_NBR 300
+# define RAY_NBR 1080
 
 
 //# define RED     "\x1b[31m"
@@ -82,10 +82,10 @@ typedef struct s_rays
 	bool				wasHitVert;
 	double			ray_ang;
 	double			distance;
-	long				xstep;
-	long				ystep;
-	long				xintercept;
-	long				yintercept;
+	double				xstep;
+	double				ystep;
+	double				xintercept;
+	double				yintercept;
 	double				horz_wallhitx;
 	double				horz_wallhity;
 	double				vert_wallhitx;

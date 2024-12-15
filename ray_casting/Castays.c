@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:31:59 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 16:59:32 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 19:52:07 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void RayFacing(t_rays *ray, t_facing *facing)
 
 void HorizontalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 {
-	long		nextHTouchX;
-	long		nextHTouchY;
+	double		nextHTouchX;
+	double		nextHTouchY;
 	
 	ray->horz_wallhitx = 0;
 	ray->horz_wallhity = 0;
@@ -61,7 +61,7 @@ void HorizontalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 	int var = 0;
 	if (facing->facing_up)
 		var = 1;
-	while (nextHTouchX > 0 && nextHTouchY > 0 && nextHTouchX < ((data->weight - 1) * SQUER) && nextHTouchY < ((data->height - 1) * SQUER))
+	while (nextHTouchX >= 0 && nextHTouchY >= 0 && nextHTouchX <= ((data->weight - 1) * SQUER) && nextHTouchY <= ((data->height - 1) * SQUER))
 	{
 		if (wallcheckers(data, nextHTouchX, nextHTouchY - var))
 		{
@@ -76,15 +76,16 @@ void HorizontalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 			nextHTouchY += ray->ystep;
 		}
 	}
-	ray->xintercept = 0;
-	ray->yintercept = 0;
-	ray->xstep = 0;
-	ray->ystep = 0;
+	//printf("horizontal	ray->horz_wallhitx[%f],	ray->horz_wallhity[%f]\n", ray->horz_wallhitx, ray->horz_wallhity);
+	//ray->xintercept = 0;
+	//ray->yintercept = 0;
+	//ray->xstep = 0;
+	//ray->ystep = 0;
 }
 void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 {
-	long		nextVTouchX;
-	long		nextVTouchY;
+	double		nextVTouchX;
+	double		nextVTouchY;
 	
 	ray->vert_wallhitx = 0;
 	ray->vert_wallhity = 0;
@@ -102,12 +103,13 @@ void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 		ray->ystep *= -1;
 	if (facing->facing_down && ray->ystep < 0)
 		ray->ystep *= -1;
+	//printf("Vertical	yintercept[%f],	ystep[%f]\n", ray->yintercept, ray->ystep);
 	nextVTouchX = ray->xintercept;
 	nextVTouchY = ray->yintercept;
 	int var = 0;
 	if (facing->facing_left)
 		var = 1;
-	while (nextVTouchX > 0 && nextVTouchY > 0 && nextVTouchX < ((data->weight - 1) * SQUER) && nextVTouchY < ((data->height - 1) * SQUER))
+	while (nextVTouchX >= 0 && nextVTouchY >= 0 && nextVTouchX <= ((data->weight - 1) * SQUER) && nextVTouchY <= ((data->height - 1) * SQUER))
 	{
 		if (wallcheckers(data, nextVTouchX - var, nextVTouchY))
 		{
@@ -122,6 +124,7 @@ void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 			nextVTouchY += ray->ystep;
 		}
 	}
+	//printf("horizontal	ray->vert_wallhitx[%f],	ray->vert_wallhity[%f]\n", ray->vert_wallhitx, ray->vert_wallhity);
 }
 
 double GetDistence(double x0, double y0, double x1, double y1)
@@ -139,7 +142,6 @@ void Cast(t_data *data, int ColumId)
 	data->view[ColumId].facing = &facing;
 	data->view[ColumId].wasHitVert = false;
 	RayFacing(&data->view[ColumId], &facing);
-	//printf("up[%d], down[%d], left[%d], right[%d]\n", data->view[ColumId].facing->facing_up, data->view[ColumId].facing->facing_down, data->view[ColumId].facing->facing_left, data->view[ColumId].facing->facing_right);
 	HorizontalIntersection(data, &data->view[ColumId], &facing);
 	VerticalIntersection(data, &data->view[ColumId], &facing);
 	t_player	*player = data->player;
@@ -169,20 +171,31 @@ void PikumaCast(t_data *data, t_player *player)
 
 	plus = degree_radian(FOV_ANG, 0) / RAY_NBR;
 	data->view = malloc(sizeof(t_rays) * RAY_NBR);
-	data->view[ColumId].ray_ang = player->rot_angel - (degree_radian(FOV_ANG, 0) / 2);
+	//data->view[ColumId].ray_ang = player->rot_angel - (degree_radian(FOV_ANG, 0) / 2);
+	//while (ColumId < RAY_NBR)
+	//{
+	//	Cast(data, ColumId);
+	//	ColumId++;
+	//	if(ColumId < RAY_NBR)
+	//	{
+	//		data->view[ColumId].ray_ang = data->view[ColumId - 1].ray_ang + plus;
+	//		data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
+	//	}
+	//}
 	while (ColumId < RAY_NBR)
 	{
+		data->view[ColumId].ray_ang = (player->rot_angel - (degree_radian(FOV_ANG, 0) / 2)) + (ColumId * plus);
+		data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
+		//printf("ray_ang[%f]\n", data->view[ColumId].ray_ang);
 		Cast(data, ColumId);
 		ColumId++;
-		if(ColumId < RAY_NBR)
-		{
-			data->view[ColumId].ray_ang = data->view[ColumId - 1].ray_ang + plus;
-			data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
-		}
 	}
 	i = -1;
-	while (++i < RAY_NBR)
+	while (++i < (RAY_NBR - 1))
+	{
+		//printf("Id[%d], destinationX[%f], destinationY[%f]\n", i, data->view[i].destinationX, data->view[i].destinationY);
 		bresenham(player->pl_y, player->pl_x, data->view[i].destinationY, data->view[i].destinationX, data);
+	}
 }
 
 void CastAllRays(t_data *data, t_player *player)
