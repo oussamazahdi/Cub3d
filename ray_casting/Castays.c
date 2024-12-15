@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:31:59 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 19:52:07 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 20:40:39 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ void HorizontalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 			nextHTouchY += ray->ystep;
 		}
 	}
-	//printf("horizontal	ray->horz_wallhitx[%f],	ray->horz_wallhity[%f]\n", ray->horz_wallhitx, ray->horz_wallhity);
-	//ray->xintercept = 0;
-	//ray->yintercept = 0;
-	//ray->xstep = 0;
-	//ray->ystep = 0;
 }
 void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 {
@@ -103,7 +98,6 @@ void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 		ray->ystep *= -1;
 	if (facing->facing_down && ray->ystep < 0)
 		ray->ystep *= -1;
-	//printf("Vertical	yintercept[%f],	ystep[%f]\n", ray->yintercept, ray->ystep);
 	nextVTouchX = ray->xintercept;
 	nextVTouchY = ray->yintercept;
 	int var = 0;
@@ -124,7 +118,6 @@ void VerticalIntersection(t_data *data, t_rays *ray, t_facing *facing)
 			nextVTouchY += ray->ystep;
 		}
 	}
-	//printf("horizontal	ray->vert_wallhitx[%f],	ray->vert_wallhity[%f]\n", ray->vert_wallhitx, ray->vert_wallhity);
 }
 
 double GetDistence(double x0, double y0, double x1, double y1)
@@ -159,11 +152,11 @@ void Cast(t_data *data, int ColumId)
 		data->view[ColumId].distance = Hdistance;
 	}
 	if (Hdistance > Vdistance)
-		data->view[ColumId].wasHitVert = true;
-	
+		data->view[ColumId].wasHitVert = true;	
 }
 
-void PikumaCast(t_data *data, t_player *player)
+
+void CastAllRays(t_data *data, t_player *player)
 {
 	int ColumId = 0;
 	double	plus;
@@ -171,36 +164,14 @@ void PikumaCast(t_data *data, t_player *player)
 
 	plus = degree_radian(FOV_ANG, 0) / RAY_NBR;
 	data->view = malloc(sizeof(t_rays) * RAY_NBR);
-	//data->view[ColumId].ray_ang = player->rot_angel - (degree_radian(FOV_ANG, 0) / 2);
-	//while (ColumId < RAY_NBR)
-	//{
-	//	Cast(data, ColumId);
-	//	ColumId++;
-	//	if(ColumId < RAY_NBR)
-	//	{
-	//		data->view[ColumId].ray_ang = data->view[ColumId - 1].ray_ang + plus;
-	//		data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
-	//	}
-	//}
 	while (ColumId < RAY_NBR)
 	{
 		data->view[ColumId].ray_ang = (player->rot_angel - (degree_radian(FOV_ANG, 0) / 2)) + (ColumId * plus);
 		data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
-		//printf("ray_ang[%f]\n", data->view[ColumId].ray_ang);
 		Cast(data, ColumId);
 		ColumId++;
 	}
 	i = -1;
 	while (++i < (RAY_NBR - 1))
-	{
-		//printf("Id[%d], destinationX[%f], destinationY[%f]\n", i, data->view[i].destinationX, data->view[i].destinationY);
 		bresenham(player->pl_y, player->pl_x, data->view[i].destinationY, data->view[i].destinationX, data);
-	}
-}
-
-void CastAllRays(t_data *data, t_player *player)
-{
-	//(void)player;
-	//SimpelCast(data);
-	PikumaCast(data, player);
 }
