@@ -6,20 +6,13 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:38:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/14 13:50:00 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 13:07:16 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int wallcheckers(t_data *data, int x, int y)
-{
-	int i = floor(y / SQUER);
-	int j = floor(x / SQUER);
-	if (data->map[i][j] == '1')
-		return 1;
-	return 0;
-}
+
 
 void bresenham_Simpel(int y0, int x0, int y1, int x1, t_data *exec)
 {
@@ -45,7 +38,7 @@ void bresenham_Simpel(int y0, int x0, int y1, int x1, t_data *exec)
 	return;
     while (1)
     {
-        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF6700FF);
+        mlx_put_pixel(exec->mlx->image, x0, y0, 0xFF670080);
         e2 = 2 * err;
         if (e2 > -dy)
         {
@@ -57,6 +50,7 @@ void bresenham_Simpel(int y0, int x0, int y1, int x1, t_data *exec)
           	err += dx;
           	y0 += sy; 
         }
+     //   if (x0 < 0 || y0 < 0 || x0 > exec->weight * 32 || y0 > exec->height * 32 ||  (x0 == x1 && y0 == y1))
         if (x0 < 0 || y0 < 0 || x0 > exec->weight * 32 || y0 > exec->height * 32 ||  (x0 == x1 && y0 == y1) || wallcheckers(exec, x0, y0))
             break;
     }

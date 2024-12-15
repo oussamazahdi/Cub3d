@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/14 13:50:19 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 16:44:34 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "get_next_line/get_next_line.h"
 
 # define SQUER 32
-# define FOV_ANG 60
-# define RAY_NBR 1080
+# define FOV_ANG 66
+# define RAY_NBR 300
 
 
 //# define RED     "\x1b[31m"
@@ -39,41 +39,64 @@
 
 
 
-typedef struct s_bres
-{
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			e2;
-	int			err;
-}	t_bres;
+//typedef struct s_bres
+//{
+//	int			dx;
+//	int			dy;
+//	int			sx;
+//	int			sy;
+//	int			e2;
+//	int			err;
+//}	t_bres;
 
 
 typedef struct s_facing
 {
-//	int			facing_down;
-//	int			facing_up;
-//	int			facing_right;
-//	int			facing_left;
+	int			facing_down;
+	int			facing_up;
+	int			facing_right;
+	int			facing_left;
 }	t_facing;
 
+//typedef struct s_rays
+//{
+//	t_facing		*facing;
+//	int			xstep;
+//	int			ystep;
+//	int			xintercept;
+//	int			yintercept;
+//	int			d_x;
+//	int			d_y;
+//	int			horz_wallhitx;
+//	int			horz_wallhity;
+//	int			vert_wallhitx;
+//	int			vert_wallhity;
+//	double		distance;
+//	double		Vdistance;
+//	double		Hdistance;
+//}	t_rays;
 typedef struct s_rays
 {
-	t_facing		*facing;
-	int			xstep;
-	int			ystep;
-	int			xintercept;
-	int			yintercept;
-	int			d_x;
-	int			d_y;
-	int			horz_wallhitx;
-	int			horz_wallhity;
-	int			vert_wallhitx;
-	int			vert_wallhity;
-	double		distance;
-	double		Vdistance;
-	double		Hdistance;
+	bool				horz_wallhit;
+	bool				vert_wallhit;
+	bool				wasHitVert;
+	double			ray_ang;
+	double			distance;
+	long				xstep;
+	long				ystep;
+	long				xintercept;
+	long				yintercept;
+	double				horz_wallhitx;
+	double				horz_wallhity;
+	double				vert_wallhitx;
+	double				vert_wallhity;
+	double				destinationX;
+	double				destinationY;
+	t_facing			*facing;
+	//int			d_x;
+	//int			d_y;
+	//double		Vdistance;
+	//double		Hdistance;
 }	t_rays;
 //typedef struct s_rays
 //{
@@ -120,9 +143,11 @@ typedef struct s_player
 
 typedef struct s_data
 {
+	bool			update;
 	t_graph		*mlx;
-	t_rays		*rays;
-	t_bres		*bres;
+	t_rays		*view;
+	//t_rays		*rays;
+	//t_bres		*bres;
 	char			*NO;
 	char			*EA;
 	char			*SO;
@@ -167,6 +192,8 @@ void ft_put_player(t_data *data, mlx_image_t *image);
 void ft_put_map(t_data *data);
 void ft_handek_actions(void *param);
 void CastAllRays(t_data *data, t_player *player);
+int wallcheckers(t_data *data, int x, int y);
+
 
 void SimpelCast(t_data *data);
 

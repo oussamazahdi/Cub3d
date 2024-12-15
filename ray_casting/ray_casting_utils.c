@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:33:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/13 19:11:48 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/15 13:59:41 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void ft_release_keys(t_data *data)
 {
 	t_player *player = data->player;
 	
-	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_ESCAPE))
-		exit (0);
+	//if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_ESCAPE))
+	//	exit (0);
 	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_UP))
 		player->walk_dir = 0;
 	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_DOWN) || mlx_is_key_down(data->mlx->mlx, MLX_KEY_S))
@@ -102,6 +102,15 @@ void ft_release_keys(t_data *data)
 //	bresenham_con(data, x, y, &bres);
 //    ft_release_keys(data);
 //}
+
+int wallcheckers(t_data *data, int x, int y)
+{
+	int i = floor(y / SQUER);
+	int j = floor(x / SQUER);
+	if (data->map[i][j] == '1')
+		return 1;
+	return 0;
+}
 
 void bresenham(int y0, int x0, int y1, int x1, t_data *exec)
 {
