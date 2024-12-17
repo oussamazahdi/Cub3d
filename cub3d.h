@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/15 22:41:07 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:12:14 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define HEIGHT 1080
 # define WEIGHT 1920
-# define SQUER 32
+# define SQUER 10
 # define FOV_ANG 66
 # define RAY_NBR 1280
 
@@ -124,6 +124,7 @@ typedef struct s_rays
 typedef struct s_graph
 {
 	mlx_t		*mlx;
+	mlx_image_t	*project;
 	mlx_image_t	*image;
 }	t_graph;
 
@@ -198,5 +199,6 @@ int wallcheckers(t_data *data, int x, int y);
 
 
 void SimpelCast(t_data *data);
+void	Randring3D(t_data *data, t_player *player);
 
 #endif
