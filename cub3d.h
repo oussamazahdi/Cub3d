@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/17 13:12:14 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/17 18:09:55 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # define HEIGHT 1080
 # define WEIGHT 1920
 # define SQUER 10
+# define TAIL 32
 # define FOV_ANG 66
-# define RAY_NBR 1280
+# define RAY_NBR 1920
 
 
 //# define RED     "\x1b[31m"

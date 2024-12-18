@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:29:09 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 17:38:20 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/17 17:13:35 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void ft_handek_actions(void *param)
 	{
 		ft_put_map(data);
 		CastAllRays(data, player);
+		Randring3D(data, player);
 	}
 }
