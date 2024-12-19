@@ -6,11 +6,12 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:24:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/17 21:12:23 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/18 12:45:46 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 void PutLine(t_data *data, long Up, long Down, int x)
 {
 	long		i;
@@ -45,13 +46,15 @@ void ft_fill_project(t_data *data, t_graph *mlx)
 
 void	Randring3D(t_data *data, t_player *player)
 {
-	//(void)player;
-	ft_fill_project(data, data->mlx);
-	double wallheight;
-	double distanceprojection;
-	long Up, Down;
+	double		wallheight;
+	double		distanceprojection;
+	long			Up;
+	long			Down;
+	int			i;
 
-	for (int i = 0; i < RAY_NBR; i++)
+	ft_fill_project(data, data->mlx);
+	i = -1;
+	while (++i < RAY_NBR)
 	{
 		distanceprojection = (WEIGHT / 2) / tan(degree_radian(FOV_ANG, 0) / 2);
 		wallheight = (SQUER / (data->view[i].distance * cos(data->view[i].ray_ang - player->rot_angel))) * distanceprojection;
@@ -63,5 +66,4 @@ void	Randring3D(t_data *data, t_player *player)
 			Down = HEIGHT;
 		PutLine(data, Up, Down, i);
 	}
-	
 }
