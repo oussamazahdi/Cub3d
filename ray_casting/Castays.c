@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:31:59 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/18 18:22:21 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/23 20:52:03 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ double GetDistence(double x0, double y0, double x1, double y1)
 void Cast(t_data *data, int ColumId)
 {
 	t_facing		facing;
-	double		Hdistance = 2147483647;
-	double		Vdistance = 2147483647;
+	float		Hdistance = 214748364777777;
+	float		Vdistance = 214748364777777;
 	
 	data->view[ColumId].facing = &facing;
 	data->view[ColumId].wasHitVert = false;
@@ -145,7 +145,7 @@ void Cast(t_data *data, int ColumId)
 	data->view[ColumId].destinationX = data->view[ColumId].vert_wallhitx;
 	data->view[ColumId].destinationY = data->view[ColumId].vert_wallhity;
 	data->view[ColumId].distance = Vdistance;
-	if (Hdistance < Vdistance)
+	if (Hdistance <= Vdistance)
 	{
 		data->view[ColumId].destinationX = data->view[ColumId].horz_wallhitx;
 		data->view[ColumId].destinationY = data->view[ColumId].horz_wallhity;

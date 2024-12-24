@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/19 13:46:58 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/24 15:16:08 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 
-# define HEIGHT 1080
-# define WEIGHT 1920
+# define HEIGHT 900
+# define WEIGHT 1600
 # define SQUER 10
 # define TAIL 32
 # define FOV_ANG 66
-# define RAY_NBR 1920
+# define RAY_NBR 1600
 
 typedef struct s_facing
 {

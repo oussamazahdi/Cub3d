@@ -40,3 +40,17 @@ NO textures/simonkraft/respawn_anchor_side0.xpm
 1111100000000000000000N0000101
 111111000111110000000000000001
 111111111111111111111111111111
+
+
+
+
+
+
+
+
+
+
+
+
+
+	gcc -std=c99 -I/Users/ozahdi/.brew/Cellar/sdl2/2.30.10/include -L/Users/ozahdi/.brew/Cellar/sdl2/2.30.10/lib -lSDL2 ./src/*.c -o raycast
