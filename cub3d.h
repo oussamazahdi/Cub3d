@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/24 15:16:08 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/12/24 18:28:30 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@
 # define HEIGHT 900
 # define WEIGHT 1600
 # define SQUER 10
-# define TAIL 32
+# define TAIL 64
 # define FOV_ANG 66
 # define RAY_NBR 1600
 
+typedef struct s_texture
+{
+	uint32_t **walltexture;
+}	t_texture;
 typedef struct s_facing
 {
 	int			facing_down;
@@ -84,6 +88,7 @@ typedef struct s_data
 	bool			update;
 	t_graph		*mlx;
 	t_rays		*view;
+	t_texture		texture;
 	char			*NO;
 	char			*EA;
 	char			*SO;
