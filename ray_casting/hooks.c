@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:29:09 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/17 17:13:35 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/03 17:31:14 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ void ft_handek_actions(void *param)
 		data->update = true;
 		player->walk_dir = 1;
 	}
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_D))
+	{
+		//printf("-----------------------------------\n");
+		player->walk_dir = 1;
+		player->pl_x += cos(player->rot_angel + M_PI / 2) * player->walk_dir * player->rot_speed * player->speed;
+		player->pl_y += sin(player->rot_angel + M_PI / 2) * player->walk_dir * player->rot_speed * player->speed;
+	}
+	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_A))
+	{
+		
+		player->walk_dir = -1;
+		player->pl_x -= cos(player->rot_angel - M_PI / 2) * player->walk_dir * player->rot_speed * player->speed;
+		player->pl_y += sin(player->rot_angel - M_PI / 2) * player->walk_dir * player->rot_speed * player->speed;
+	}
 	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_ESCAPE))
 		exit (0);
 	movespeed = player->walk_dir * player->rot_speed;
@@ -55,10 +69,10 @@ void ft_handek_actions(void *param)
 		player->pl_x += cos(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
 		player->pl_y += sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
 	}
-	if (data->update == true)
-	{
+	//if (data->update == true)
+	//{
 		ft_put_map(data);
 		CastAllRays(data, player);
 		Randring3D(data, player);
-	}
+	//}
 }

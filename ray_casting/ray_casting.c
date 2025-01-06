@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:26:27 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/27 15:33:47 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/02 19:23:31 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void rander_2d_map(t_data *data, t_graph *mlx)
 	mlx->image = mlx_new_image(mlx->mlx, (data->weight - 1) * SQUER, data->height * SQUER);
 	mlx_image_to_window(data->mlx->mlx, data->mlx->project, 0, 0);
 	mlx_image_to_window(data->mlx->mlx, data->mlx->image, 0, 0);
-	CastAllRays(data, data->player);
 	//ft_fill_project(data, data->mlx);
-	Randring3D(data, data->player);
 	ft_put_map(data);
+	CastAllRays(data, data->player);
+	Randring3D(data, data->player);
 	mlx_loop_hook(data->mlx->mlx,ft_handek_actions, data);
 	mlx_loop(mlx->mlx);
 }

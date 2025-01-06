@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:33:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/15 13:59:41 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/03 12:02:20 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void ft_release_keys(t_data *data)
 	else if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_LEFT))
 		player->turn_dir = 0;
 	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_W))
-		player->turn_dir = 0;
+		player->walk_dir = 0;
+	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_D))
+		player->walk_dir = 0;
+	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_A))
+		player->walk_dir = 0;
+		//player->turn_dir = 0;
 	if (mlx_is_key_down(data->mlx->mlx, MLX_KEY_S))
 		player->turn_dir = 0;
 }

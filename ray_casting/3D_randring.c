@@ -6,13 +6,13 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:24:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/18 12:45:46 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/03 17:25:58 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void PutLine(t_data *data, long Up, long Down, int x)
+void PutLine(t_data *data, float Up, float Down, int x)
 {
 	long		i;
 
@@ -36,9 +36,9 @@ void ft_fill_project(t_data *data, t_graph *mlx)
 		while (++j < WEIGHT)
 		{
 			if (i < HEIGHT / 2)
-				mlx_put_pixel(mlx->project, j, i, 0x2f3e46FF);
+				mlx_put_pixel(mlx->project, j, i, data->C_rgb);
 			else
-				mlx_put_pixel(mlx->project, j, i, 0xcad2c5FF);
+				mlx_put_pixel(mlx->project, j, i, data->F_rgb);
 		}
 		i++;
 	}
@@ -46,10 +46,10 @@ void ft_fill_project(t_data *data, t_graph *mlx)
 
 void	Randring3D(t_data *data, t_player *player)
 {
-	double		wallheight;
-	double		distanceprojection;
-	long			Up;
-	long			Down;
+	float		wallheight;
+	float		distanceprojection;
+	float			Up;
+	float			Down;
 	int			i;
 
 	ft_fill_project(data, data->mlx);

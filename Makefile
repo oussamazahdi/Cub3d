@@ -6,7 +6,7 @@
 #    By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/29 09:15:18 by ozahdi            #+#    #+#              #
-#    Updated: 2024/12/19 13:48:37 by ozahdi           ###   ########.fr        #
+#    Updated: 2025/01/06 17:59:56 by ozahdi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ			=	$(SRC:.c=.o)
 
 CC			=	cc
 
-FLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror #-g3 -fsanitize=address
 
 NAME			=	cub3d
 

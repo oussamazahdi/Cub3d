@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/24 18:28:30 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/06 19:02:20 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 
-# define HEIGHT 900
-# define WEIGHT 1600
+# define HEIGHT 720
+# define WEIGHT 1280
 # define SQUER 10
 # define TAIL 64
-# define FOV_ANG 66
-# define RAY_NBR 1600
+# define FOV_ANG 60
+# define RAY_NBR 1280
 
 typedef struct s_texture
 {
@@ -45,18 +45,18 @@ typedef struct s_rays
 	bool				horz_wallhit;
 	bool				vert_wallhit;
 	bool				wasHitVert;
-	double			ray_ang;
-	double			distance;
-	double				xstep;
-	double				ystep;
-	double				xintercept;
-	double				yintercept;
-	double				horz_wallhitx;
-	double				horz_wallhity;
-	double				vert_wallhitx;
-	double				vert_wallhity;
-	double				destinationX;
-	double				destinationY;
+	float			ray_ang;
+	float			distance;
+	float				xstep;
+	float				ystep;
+	float				xintercept;
+	float				yintercept;
+	float				horz_wallhitx;
+	float				horz_wallhity;
+	float				vert_wallhitx;
+	float				vert_wallhity;
+	float				destinationX;
+	float				destinationY;
 	t_facing			*facing;
 }	t_rays;
 
@@ -76,7 +76,7 @@ typedef struct s_player
 	int			redius;
 	int			turn_dir;
 	int			walk_dir;
-	double		rot_angel;
+	float		rot_angel;
 	int			speed;
 	double		rot_speed;
 	int			hitbox;

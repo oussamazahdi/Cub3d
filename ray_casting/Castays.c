@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:31:59 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/12/27 13:17:40 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/03 09:14:58 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void Cast(t_data *data, int ColumId)
 void CastAllRays(t_data *data, t_player *player)
 {
 	int ColumId = 0;
-	double	plus;
+	float	plus;
 	int		i;
 
 	plus = degree_radian(FOV_ANG, 0) / RAY_NBR;

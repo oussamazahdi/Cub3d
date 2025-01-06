@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:17 by sslaoui           #+#    #+#             */
-/*   Updated: 2024/12/13 19:11:20 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/02 19:48:44 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_rgb(char **ptr)
 				return (1);
 			j++;
 		}
-		if (j > 3)
+		if (j > 4)
 			return (1);
 		j = 0;
 		i++;
@@ -404,6 +404,12 @@ void	player_detection(char **map, t_player *pl)
 		j = 0;
 		i++;
 	}
+	if ((int)pl->pl_x == 0 || (int)pl->pl_y == 0)
+    {
+        //we shoulde to free all ptr's before exiting the programme
+        printf("Cub3d: Error: You should to add player!\n");
+        exit(1);
+    }
 }
 
 
