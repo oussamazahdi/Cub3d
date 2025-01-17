@@ -6,7 +6,7 @@
 #    By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/29 09:15:18 by ozahdi            #+#    #+#              #
-#    Updated: 2025/01/10 21:15:33 by ozahdi           ###   ########.fr        #
+#    Updated: 2025/01/17 17:52:38 by ozahdi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC			=	main.c\
 				utils/ft_split.c utils/ft_atoi.c utils/ft_strncmp.c utils/ft_strshr.c\
 				ray_casting/hooks.c ray_casting/put_map.c ray_casting/ray_casting.c \
 				ray_casting/ray_casting_utils.c ray_casting/Castays.c ray_casting/3D_randring.c\
+				parsing/checker.c parsing/parsing.c parsing/rgb_check.c parsing/utils.c\
 
 OBJ			=	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:26:27 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/12 23:27:19 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:11:19 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void rander_2d_map(t_data *data, t_graph *mlx)
 {
 	mlx->mlx = mlx_init(WEIGHT, HEIGHT, "CUB3D", false);
 	mlx->project = mlx_new_image(mlx->mlx, WEIGHT, HEIGHT);
-	mlx->image = mlx_new_image(mlx->mlx, (data->weight - 1) * SQUER, data->height * SQUER);
-	mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/pic.png");
+	//mlx->image = mlx_new_image(mlx->mlx, (data->weight - 1) * SQUER, data->height * SQUER);
+	mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/pic2.png");
 	mlx->textute = mlx_texture_to_image(mlx->mlx, mlx->la);
 	mlx_image_to_window(data->mlx->mlx, data->mlx->project, 0, 0);
-	mlx_image_to_window(data->mlx->mlx, data->mlx->image, 0, 0);
+	//mlx_image_to_window(data->mlx->mlx, data->mlx->image, 0, 0);
 	//ft_fill_project(data, data->mlx);
 	//ft_put_map(data);
 	CastAllRays(data, data->player);

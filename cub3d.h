@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/12 23:31:57 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:11:40 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define TEXT_WIDTH 64
 # define HEIGHT 900
 # define WEIGHT 1600
-# define SQUER 32
-# define TAIL 64
+# define SQUER 90
+# define TAIL 90
 # define FOV_ANG 60
 # define RAY_NBR 1600
 
@@ -93,6 +93,7 @@ typedef struct s_player
 typedef struct s_data
 {
 	bool			update;
+	char			*name;
 	t_graph		*mlx;
 	t_rays		*view;
 	t_texture		texture;
@@ -120,12 +121,31 @@ typedef struct s_list
 
 						// UTILS
 int		ft_atoi(const char *str);
-void		ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstnew(void *content);
-char		**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strshr(char *s, char c);
+int		space_skip(char *str);
+int		lines_lenght(t_list *lst, int *l_len);
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+char	**ft_split(char const *s, char c);
+void	ft_strcpy(const char *src, char *dst);
+void	player_detection(char **map, t_player *pl);
+void	utils_init(t_data *utils, char *av);
+void	fill_space(char *str);
+
+						//PARSE
+void	*parsing_map(t_data *utils, int *fd);
+int		filling_map(t_data *utils, int len, int j, t_list *lst);
+int		check_map(char **map, int y);
+int		check_map2(char **map, int i, int j, int y);
+int		sides_map(char **map, int y);
+int		check_rgb(char **ptr);
+int		rgb_parse(char *str, t_data *utils);
+int		get_content(t_list **lst, int *fd, t_data *utils);
+int		parse(char *str, int *i, t_data *utils, int *in);
+int		checker(char *str);
+int		parse1(char *str, int *i, t_data *utils, int *in);
 
 
 void ray_casting(t_data *data, t_graph *mlx);
