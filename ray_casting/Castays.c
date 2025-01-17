@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:31:59 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/03 09:14:58 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/12 23:27:26 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,19 +159,23 @@ void Cast(t_data *data, int ColumId)
 void CastAllRays(t_data *data, t_player *player)
 {
 	int ColumId = 0;
+	float	ang;
 	float	plus;
-	int		i;
+	//int		i;
 
 	plus = degree_radian(FOV_ANG, 0) / RAY_NBR;
 	data->view = malloc(sizeof(t_rays) * RAY_NBR);
+	ang = player->rot_angel - (degree_radian(FOV_ANG, 0) / 2);
 	while (ColumId < RAY_NBR)
 	{
-		data->view[ColumId].ray_ang = (player->rot_angel - (degree_radian(FOV_ANG, 0) / 2)) + (ColumId * plus);
+		//data->view[ColumId].ray_ang = (player->rot_angel - (degree_radian(FOV_ANG, 0) / 2)) + (ColumId * plus);
+		data->view[ColumId].ray_ang = ang;
 		data->view[ColumId].ray_ang = NormalizeAngle(data->view[ColumId].ray_ang);
 		Cast(data, ColumId);
+		ang += degree_radian(FOV_ANG, 0) / RAY_NBR;
 		ColumId++;
 	}
-	i = -1;
-	while (++i < (RAY_NBR - 1))
-		bresenham(player->pl_y, player->pl_x, data->view[i].destinationY, data->view[i].destinationX, data);
+	//i = -1;
+	//while (++i < (RAY_NBR))
+	//	bresenham(player->pl_y, player->pl_x, data->view[i].destinationY, data->view[i].destinationX, data);
 }

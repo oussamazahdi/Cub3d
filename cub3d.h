@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/06 19:02:20 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/12 23:31:57 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 
-# define HEIGHT 720
-# define WEIGHT 1280
-# define SQUER 10
+# define TEXT_HEIGH 64
+# define TEXT_WIDTH 64
+# define HEIGHT 900
+# define WEIGHT 1600
+# define SQUER 32
 # define TAIL 64
 # define FOV_ANG 60
-# define RAY_NBR 1280
+# define RAY_NBR 1600
 
 typedef struct s_texture
 {
-	uint32_t **walltexture;
+	uint32_t		*colorbuffer;
+	uint32_t		*walltexture;
 }	t_texture;
+
 typedef struct s_facing
 {
 	int			facing_down;
@@ -57,6 +61,7 @@ typedef struct s_rays
 	float				vert_wallhity;
 	float				destinationX;
 	float				destinationY;
+	int 					wall_hight;
 	t_facing			*facing;
 }	t_rays;
 
@@ -65,6 +70,8 @@ typedef struct s_graph
 	mlx_t		*mlx;
 	mlx_image_t	*project;
 	mlx_image_t	*image;
+	mlx_texture_t	*la;
+	mlx_image_t	*textute;
 }	t_graph;
 
 typedef struct s_player

@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:29:09 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/03 17:31:14 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/12 23:41:37 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ void ft_handek_actions(void *param)
 	}
 	//if (data->update == true)
 	//{
-		ft_put_map(data);
+		//ft_put_map(data);
 		CastAllRays(data, player);
 		Randring3D(data, player);
+		ft_release_keys(data);
 	//}
 }
