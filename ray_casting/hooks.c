@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:29:09 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/12 23:41:37 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:49:57 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void ft_handek_actions(void *param)
 		exit (0);
 	movespeed = player->walk_dir * player->rot_speed;
 	
-	int x = player->pl_x + cos(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
-	int y = player->pl_y + sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
+	int x = player->pl_x + cos(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed * 10;
+	int y = player->pl_y + sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed * 10;
 
 	if (!ft_check_wall(data, x, y))
 	{
-		player->pl_x += cos(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
-		player->pl_y += sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed;
+		player->pl_x += cos(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed * 10;
+		player->pl_y += sin(player->rot_angel) * player->walk_dir * player->rot_speed * player->speed * 10;
 	}
 	//if (data->update == true)
 	//{

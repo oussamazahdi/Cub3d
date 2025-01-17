@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/17 18:11:40 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:54:10 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define TEXT_WIDTH 64
 # define HEIGHT 900
 # define WEIGHT 1600
-# define SQUER 90
-# define TAIL 90
+# define SQUER 64
+# define TAIL 64
 # define FOV_ANG 60
 # define RAY_NBR 1600
 
