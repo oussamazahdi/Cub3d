@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:24:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/17 17:46:15 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 20:32:50 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,21 @@ void	Randring3D(t_data *data, t_player *player)
 		Down = ((HEIGHT / 2) - (wallheight / 2)) + wallheight;
 		if (Down > HEIGHT)
 			Down = HEIGHT;
+		//if (data->view[i].wasHitVert == true)
+		//{
+		//	if (data->view[i].ray_ang > 0 && data->view[i].ray_ang < M_PI)
+		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/wall1.png");
+		//	else
+		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/wall2.png");
+		//}
+		//else
+		//{
+		//	if (data->view[i].ray_ang > M_PI / 2 && data->view[i].ray_ang < 3 * M_PI_2)
+		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/sss.png");
+		//	else
+		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/pic2.png");	
+		//}
+		//data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->la);
 		PutLine(data, Up, Down, i, walltexture, wallheight, los);
 	}
 }
