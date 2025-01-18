@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:59:50 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/16 21:20:21 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/17 22:33:17 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,28 @@ int	parse(char *str, int *i, t_data *utils, int *in)
 	{
 		if (utils->NO)
 			return (1);
-		utils->NO = str;
+		utils->NO = ft_strtrim(str + 3, "\n");
 		(*i)++;
 	}
 	else if (ft_strncmp(str, "SO ", 3) == 0)
 	{
 		if (utils->SO)
 			return (1);
-		utils->SO = str;
+		utils->SO = ft_strtrim(str + 3, "\n");
 		(*i)++;
 	}
 	else if (ft_strncmp(str, "EA ", 3) == 0)
 	{
 		if (utils->EA)
 			return (1);
-		utils->EA = str;
+		utils->EA = ft_strtrim(str + 3, "\n");
 		(*i)++;
 	}
 	else if (ft_strncmp(str, "WE ", 3) == 0)
 	{
 		if (utils->WE)
 			return (1);
-		utils->WE = str;
+		utils->WE = ft_strtrim(str + 3, "\n");
 		(*i)++;
 	}
 	else if (ft_strncmp(str, "C ", 2) == 0 || ft_strncmp(str, "F ", 2) == 0)

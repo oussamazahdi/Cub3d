@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:39:11 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/17 18:54:10 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/18 13:14:46 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ typedef struct s_graph
 	mlx_t		*mlx;
 	mlx_image_t	*project;
 	mlx_image_t	*image;
+	mlx_texture_t	*NO;
+	mlx_texture_t	*EA;
+	mlx_texture_t	*SO;
+	mlx_texture_t	*WE;
 	mlx_texture_t	*la;
 	mlx_image_t	*textute;
 }	t_graph;
@@ -133,6 +137,7 @@ void	ft_strcpy(const char *src, char *dst);
 void	player_detection(char **map, t_player *pl);
 void	utils_init(t_data *utils, char *av);
 void	fill_space(char *str);
+char	*ft_strtrim(char *s1, char *set);
 
 						//PARSE
 void	*parsing_map(t_data *utils, int *fd);

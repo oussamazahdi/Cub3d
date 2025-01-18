@@ -6,7 +6,7 @@
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:24:29 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/17 20:32:50 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/18 15:02:28 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,33 +179,106 @@ unsigned int	rgb_convert(unsigned int cl)
 	return ((B << 24) | (G << 16) | (R << 8) | (A));
 }
 
-void PutLine(t_data *data, long Up, long Down, int x, uint32_t *wall, double w_height, mlx_image_t *los)
-{
-	long		i;
-	long		j;
-	int			dist;
-	int			offx;
-	int			offy;
-	unsigned int *tex_pxl;
-	unsigned int	text;
-	(void)wall;
-	(void) los;
+//void PutLine(t_data *data, long Up, long Down, int x, uint32_t *wall, double w_height, mlx_image_t *los)
+//{
+//	long		i;
+//	long		j;
+//	int			dist;
+//	int			offx;
+//	int			offy;
+//	unsigned int *tex_pxl;
+//	unsigned int	text;
+//	(void)wall;
+//	(void) los;
 
-	j = 0;
-	if (data->view[x].wasHitVert == true)
-		offx = (int)data->view[x].destinationY % TAIL;
-	else
-		offx = (int)data->view[x].destinationX % TAIL;
-	i = Up - 1;
-	while (++i < Down)
-	{
-		dist = i + (w_height / 2) - (HEIGHT / 2);
-		offy = dist * ((float)TEXT_WIDTH/ w_height);
-		tex_pxl = (unsigned int *)data->mlx->la->pixels;
-		text = rgb_convert(tex_pxl[(SQUER * offy) + offx]);
-			mlx_put_pixel(data->mlx->project, x, i, text);
-	}
+//	j = 0;
+//	if (data->view[x].wasHitVert == true)
+//		offx = (int)data->view[x].destinationY % SQUER;
+//	else
+//		offx = (int)data->view[x].destinationX % SQUER;
+//	i = Up - 1;
+//	tex_pxl = (unsigned int *)data->mlx->la->pixels;
+//	while (++i < Down)
+//	{
+//		dist = i + (w_height / 2) - (HEIGHT / 2);
+//		offy = dist * ((float)TEXT_WIDTH/ w_height);
+		
+//		offx %= TEXT_WIDTH; // Ensure offx stays within texture bounds
+//		offy %= TEXT_HEIGH; // Ensure offy stays within texture bounds
+
+//		text = rgb_convert(tex_pxl[(SQUER * offy) + offx]);
+//			mlx_put_pixel(data->mlx->project, x, i, text);
+//	}
+//}
+
+void PutLine(t_data *data, long Up, long Down, int x, double w_height) {
+    long i;
+    int dist, offx, offy;
+    unsigned int *tex_pxl, text;
+
+    tex_pxl = (unsigned int *)data->mlx->la->pixels;
+    if (data->view[x].wasHitVert == true)
+        offx = (int)data->view[x].destinationY % TEXT_WIDTH;
+    else
+        offx = (int)data->view[x].destinationX % TEXT_WIDTH;
+
+    for (i = Up; i < Down; i++) {
+        dist = i + (w_height / 2) - (HEIGHT / 2);
+        offy = (dist * TEXT_HEIGH) / w_height;
+        if (offx >= 0 && offx < TEXT_WIDTH && offy >= 0 && offy < TEXT_HEIGH) {
+            int tex_index = (offy * TEXT_WIDTH) + offx;
+            text = rgb_convert(tex_pxl[tex_index]);
+            mlx_put_pixel(data->mlx->project, x, i, text);
+        }
+    }
 }
+
+//void PutLine(t_data *data, long Up, long Down, int x, uint32_t *wall, double w_height, mlx_image_t *los)
+//{
+//	long		i;
+//	long		j;
+//	int			dist;
+//	int			offx;
+//	int			offy;
+//	unsigned int *tex_pxl;
+//	unsigned int	text;
+//	(void)wall;
+//	(void) los;
+
+//	j = 0;
+//	data->mlx->NO = mlx_load_png("texture/wall1.png");
+//	data->mlx->WE = mlx_load_png("texture/wall3.png");
+//	data->mlx->SO = mlx_load_png("texture/wall2.png");
+//	data->mlx->EA = mlx_load_png("texture/wall4.png");	
+//	if (data->view[i].wasHitVert == true)
+//	{
+//		if (data->view[i].ray_ang > 0 && data->view[i].ray_ang < M_PI)
+//			data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->NO);
+//		else
+//			data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->WE);
+//	}
+//	else
+//	{
+//		if (data->view[i].ray_ang > M_PI / 2 && data->view[i].ray_ang < 3 * M_PI_2)
+//			data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->SO);
+//		else
+//			data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->EA);
+//	}
+	
+//	if (data->view[x].wasHitVert == true)
+//		offx = (int)data->view[x].destinationY % TAIL;
+//	else
+//		offx = (int)data->view[x].destinationX % TAIL;
+//	i = Up - 1;
+//	while (++i < Down)
+//	{
+//		dist = i + (w_height / 2) - (HEIGHT / 2);
+//		offy = dist * ((float)TEXT_WIDTH/ w_height);
+//		tex_pxl = (unsigned int *)data->mlx->la->pixels;
+//		text = rgb_convert(tex_pxl[(SQUER * offy) + offx]);
+//			mlx_put_pixel(data->mlx->project, x, i, text);
+//	}
+//}
 void ft_fill_project(t_data *data, t_graph *mlx)
 {
 	int i = 0;
@@ -233,13 +306,27 @@ void	Randring3D(t_data *data, t_player *player)
 	long			Down;
 	int			i;
 	uint32_t	*walltexture;
-	mlx_image_t	*los = NULL;
+	//mlx_image_t	*los = NULL;
 
 	walltexture = malloc(sizeof(uint32_t) * TEXT_HEIGH * TEXT_WIDTH);
 	ft_fill_project(data, data->mlx);
 	i = -1;
 	while (++i < RAY_NBR)
 	{
+		if (!data->view[i].wasHitVert)
+		{
+			if (data->view[i].ray_ang > 0 && data->view[i].ray_ang < M_PI)
+				data->mlx->la = mlx_load_png("texture/wall2.png");
+			else
+				data->mlx->la = mlx_load_png("texture/wall3.png");
+		}
+		else
+		{
+			if (data->view[i].ray_ang > M_PI / 2 && data->view[i].ray_ang < (3 * M_PI) / 2)
+				data->mlx->la = mlx_load_png("texture/wall1.png");
+			else
+				data->mlx->la = mlx_load_png("texture/wall4.png");	
+		}
 		distanceprojection = (WEIGHT / 2) / tan(degree_radian(FOV_ANG, 0) / 2);
 		wallheight = (SQUER / (data->view[i].distance * cos(data->view[i].ray_ang - player->rot_angel))) * distanceprojection;
 		Up = (HEIGHT / 2) - (wallheight / 2);
@@ -248,21 +335,7 @@ void	Randring3D(t_data *data, t_player *player)
 		Down = ((HEIGHT / 2) - (wallheight / 2)) + wallheight;
 		if (Down > HEIGHT)
 			Down = HEIGHT;
-		//if (data->view[i].wasHitVert == true)
-		//{
-		//	if (data->view[i].ray_ang > 0 && data->view[i].ray_ang < M_PI)
-		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/wall1.png");
-		//	else
-		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/wall2.png");
-		//}
-		//else
-		//{
-		//	if (data->view[i].ray_ang > M_PI / 2 && data->view[i].ray_ang < 3 * M_PI_2)
-		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/sss.png");
-		//	else
-		//		data->mlx->la = mlx_load_png("/Users/ozahdi/Desktop/cub2d/pic2.png");	
-		//}
-		//data->mlx->textute = mlx_texture_to_image(data->mlx->mlx, data->mlx->la);
-		PutLine(data, Up, Down, i, walltexture, wallheight, los);
+		PutLine(data, Up, Down, i, wallheight);
+		//PutLine(data, Up, Down, i, walltexture, wallheight, los);
 	}
 }
