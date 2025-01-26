@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sslaoui <sslaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:00:56 by sslaoui           #+#    #+#             */
-/*   Updated: 2025/01/16 21:23:19 by ozahdi           ###   ########.fr       */
+/*   Updated: 2025/01/22 06:05:09 by sslaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	fill_space(char *str)
 void	utils_init(t_data *utils, char *av)
 {
 	utils->EA = NULL;
+	utils->map = NULL;
 	utils->WE = NULL;
 	utils->NO = NULL;
 	utils->SO = NULL;
@@ -36,6 +37,9 @@ void	utils_init(t_data *utils, char *av)
 	utils->name = av;
 	utils->player->pl_x = 0;
 	utils->player->pl_y = 0;
+	utils->count = 0;
+	utils->first = 0;
+	utils->i = 0;
 }
 
 void	player_detection(char **map, t_player *pl)
@@ -48,8 +52,9 @@ void	player_detection(char **map, t_player *pl)
 	while (map[i])
 	{
 		while (map[i][j])
-		{	
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'E')
 			{
 				pl->pl_x = j;
 				pl->pl_y = i;
@@ -60,12 +65,6 @@ void	player_detection(char **map, t_player *pl)
 		j = 0;
 		i++;
 	}
-	if ((int)pl->pl_x == 0 || (int)pl->pl_y == 0)
-    {
-        //we shoulde to free all ptr's before exiting the programme
-        printf("Cub3d: Error: You should to add player!\n");
-        exit(1);
-    }
 }
 
 void	ft_strcpy(const char *src, char *dst)

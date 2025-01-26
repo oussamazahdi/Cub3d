@@ -3,32 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sslaoui <sslaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 13:09:07 by ozahdi            #+#    #+#             */
-/*   Updated: 2025/01/17 22:30:22 by ozahdi           ###   ########.fr       */
+/*   Created: 2023/11/04 20:12:04 by sslaoui           #+#    #+#             */
+/*   Updated: 2025/01/20 20:02:42 by sslaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char			*ptr;
+	const char		*s;
+	unsigned int	i;
+
+	if (!dst && !src)
+		return (NULL);
+	if (dst == src)
+		return (dst);
+	i = 0;
+	ptr = dst;
+	s = (const char *)src;
+	while (i < n)
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	return (dst);
+}
+
 char	*ft_strtrim(char *s1, char *set)
 {
-	int	s;
-	int	f;
-	int	vlen;
+	char			*str;
+	unsigned int	start;
+	unsigned int	end;
 
-	if (!s1 || !set)
-		return (0);
-	if (!(*s1))
-		return (ft_strdup(""));
-	s = 0;
-	f = ft_strlen(s1);
-	f--;
-	while (ft_strchr(set, s1[s]) && s1[s])
-		s++;
-	while (ft_strchr(set, s1[f]) && s1[f])
-		f--;
-	vlen = f - s + 1;
-	return (ft_substr(s1, s, vlen));
+	start = 0;
+	end = 0;
+	if (s1 == NULL || set == NULL)
+		return (NULL);
+	while (s1[start] != '\0' && ft_strchr(set, s1[start]))
+		start++;
+	end = ft_strlen(s1);
+	while (end > start && ft_strchr(set, s1[end - 1]))
+		end--;
+	str = (char *)malloc(end - start + 1);
+	if (!str)
+		return (NULL);
+	str = (char *)ft_memcpy(str, &s1[start], end - start);
+	str[end - start] = '\0';
+	return (str);
 }
